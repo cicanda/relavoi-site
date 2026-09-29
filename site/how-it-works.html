@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How it works · Relavoi</title>
+<meta name="description" content="What happens between your API call and two ringing phones: session creation, atomic proxy allocation, call routing, event streaming and expiry.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<style>
+.steps{display:grid;gap:0;border-top:1px solid var(--ink-2)}
+.step{display:grid;grid-template-columns:120px 1fr 1fr;gap:48px;padding:56px 0;border-bottom:1px solid var(--ink-2);align-items:start}
+.step .num{font:500 56px/1 'IBM Plex Mono';color:var(--ink-4);letter-spacing:-.04em}
+.step h3{font-size:30px;line-height:1.1}
+.step p{color:var(--ink-5);font-size:16px;margin-top:14px}
+@media(max-width:900px){.step{grid-template-columns:1fr;gap:20px}}
+.states{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font:500 13px 'IBM Plex Mono'}
+.states span.s{padding:10px 16px;border-radius:8px;border:1px solid var(--ink-7);background:var(--ink-8);color:#fff}
+.states span.a{color:var(--ink-5)}
+</style></head>
+<body data-page="how">
+<header class="phero"><div class="wrap"><div class="eyebrow">How it works</div><h1>From one API call to two ringing phones.</h1><p>Relavoi sits between your app and the carrier network. Here's what happens when your courier taps "Call customer".</p></div></header>
+<section style="padding-top:48px"><div class="wrap"><div class="steps">
+<div class="step"><div class="num">01</div><div><h3>You create a session</h3><p>Your backend calls <span class="mono">POST /v1/sessions</span> with both parties' numbers and any metadata — order ID, zone, anything.</p></div><div class="code" style="font-size:12px">{ <span class="s">"agentPhone"</span>: <span class="s">"+2348031234421"</span>,
+  <span class="s">"customerPhone"</span>: <span class="s">"+2349091231192"</span>,
+  <span class="s">"gracePeriodMinutes"</span>: 15,
+  <span class="s">"metadata"</span>: { <span class="s">"orderId"</span>: <span class="s">"ORD-9281"</span> } }</div></div>
+<div class="step"><div class="num">02</div><div><h3>We allocate a proxy number</h3><p>An atomic Redis allocator takes a number from the pool for the requested region, guaranteeing no participant overlap with any other live session on that number.</p></div><div class="card"><div class="eyebrow">Allocated</div><div class="mono" style="font-size:24px;margin-top:10px">+234 201 342 0117</div><p class="mono" style="font-size:12px;margin-top:8px">region lagos · provider AFRICASTALKING</p></div></div>
+<div class="step"><div class="num">03</div><div><h3>Either party dials the proxy</h3><p>No app required. The call reaches the carrier network, arrives at Relavoi, and our router identifies the caller and bridges to the other side — against a sub-500ms p99 budget.</p></div><div class="ph" style="height:180px">Diagram · caller → carrier → Relavoi → callee</div></div>
+<div class="step"><div class="num">04</div><div><h3>Your app hears everything</h3><p>HMAC-signed webhooks and WebSocket events stream every state change: incoming, answered, ended, failed. The SDKs turn these into branded push alerts and in-call verification UI.</p></div><div class="code" style="font-size:12px"><span class="s">call.incoming</span>   14:21:28
+<span class="s">call.answered</span>   14:21:32
+<span class="s">call.ended</span>      14:23:04  92s</div></div>
+<div class="step"><div class="num">05</div><div><h3>The session expires</h3><p>When the job is done, a grace period covers follow-up calls, then the number returns to the pool after a cooldown. Dial it tomorrow and you reach nobody.</p></div><div class="card"><div class="eyebrow">After expiry</div><p style="margin-top:10px;color:var(--ink)">"This number is no longer active. Please contact [your brand] support."</p><p class="mono" style="font-size:12px;margin-top:10px;color:var(--ink-5)">dead line · redirect · custom message</p></div></div>
+</div></div></section>
+<section class="dark"><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Session lifecycle</div><h2>Five states. No ambiguity.</h2></div>
+<div class="states"><span class="s">PENDING</span><span class="a">→</span><span class="s" style="border-color:var(--sig);color:var(--sig)">ACTIVE</span><span class="a">→</span><span class="s" style="border-color:var(--amber);color:var(--amber)">GRACE_PERIOD</span><span class="a">→</span><span class="s">EXPIRED</span><span class="a" style="margin-left:24px">or</span><span class="s" style="border-color:var(--terra);color:var(--terra)">FAILED</span></div>
+<div class="grid g3" style="margin-top:56px">
+<div class="card"><h3 style="margin-top:0">Atomic allocation</h3><p>Allocation and overlap checks run as one Redis Lua script. Two sessions can never race onto the same proxy for the same participant.</p></div>
+<div class="card"><h3 style="margin-top:0">Provider health monitoring</h3><p>Africa's Talking is the primary carrier gateway. A circuit breaker tracks its error rate and trips on sustained failure. Secondary-provider pools are on the roadmap, not yet provisioned.</p></div>
+<div class="card"><h3 style="margin-top:0">Idempotent webhooks</h3><p>Duplicate carrier events never create duplicate call legs — the routing decision is cached by event ID and replayed verbatim. Failed events land in a monitored dead-letter queue.</p></div>
+</div>
+</div></section>
+<section><div class="wrap"><div class="cta-band"><div><h2>See it with your own numbers.</h2><p>Pilot partners get a provisioned number pool and can build against the Africa's Talking sandbox first.</p></div><a href="developers.html" class="btn btn-g">Open the docs</a></div></div></section>
+<script src="site.js"></script>
+</body></html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Products · Relavoi</title>
+<meta name="description" content="Voice and SMS masking over Nigerian PSTN, mobile SDKs for iOS, Android and Flutter, usage analytics, and naira-denominated metered pricing.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<style>
+.prod{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:88px 0;border-bottom:1px solid var(--ink-2)}
+.prod:nth-child(even) .ph{order:-1}
+.prod h2{font-size:40px;line-height:1.05;margin-top:14px}
+.prod p{font-size:17px;color:var(--ink-5);margin-top:16px}
+.prod ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:10px}
+.prod li{display:flex;gap:10px;font-size:15px}.prod li::before{content:'→';color:var(--sig-6);font-family:'IBM Plex Mono'}
+@media(max-width:900px){.prod{grid-template-columns:1fr}.prod:nth-child(even) .ph{order:0}}
+.tier h3{margin:0;font-size:22px}
+.tier .pr{font:500 15px/1.5 'IBM Plex Mono';margin:18px 0 4px;color:var(--ink-5)}
+.tier dl{margin:22px 0 28px;display:grid;gap:14px;font-size:14px}
+.tier dt{font:500 11px/1 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.tier dd{margin:4px 0 0;color:var(--ink-6)}
+.tier dd b{font-weight:500;color:var(--ink)}
+.tier.hi{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tier.hi p,.tier.hi .pr{color:var(--ink-4)}.tier.hi dd{color:var(--ink-2)}.tier.hi dd b{color:#fff}
+.pricenote{margin-top:40px;font:400 13px/1.7 'IBM Plex Mono';color:var(--ink-5);max-width:760px}
+</style></head>
+<body data-page="products">
+<header class="phero"><div class="wrap"><div class="eyebrow">Products</div><h1>One privacy layer. Every channel your users talk on.</h1><p>Voice and SMS masking, mobile SDKs, and the analytics to prove it's working.</p></div></header>
+<div class="wrap">
+<div class="prod" id="voice"><div><div class="eyebrow">01 · Voice masking</div><h2>Bidirectional proxy calling over PSTN</h2><p>Both parties dial a temporary proxy. Relavoi identifies the caller and bridges to the other side — each sees only the proxy.</p><ul><li>Region-scoped number pools (Lagos today)</li><li>Configurable session cap and grace period, per tenant or per session</li><li>Recording gated behind an enforced NDPR consent prompt</li><li>Expired-session behaviour: dead line, redirect to support, or custom message</li><li>One-way modes when you only want A→B or B→A to connect</li></ul></div><div class="ph" style="height:380px">Product visual · voice bridge diagram</div></div>
+<div class="prod" id="sms"><div><div class="eyebrow">02 · SMS masking</div><h2>Texts through the same proxy</h2><p>"I'm at the gate" works too. SMS routes through the session's proxy number with delivery status in your webhook stream.</p><ul><li>Same session, same proxy, same audit trail</li><li>Delivery status via <span class="mono">sms.sent</span> webhooks</li><li>Message bodies encrypted at rest, metered per message</li><li>Inbound SMS is not billed</li></ul></div><div class="ph" style="height:380px">Product visual · masked SMS thread</div></div>
+<div class="prod" id="sdk"><div><div class="eyebrow">03 · Mobile SDKs</div><h2>Verified calls your customers trust</h2><p>SDKs for iOS, Android and Flutter add the trust layer PSTN can't: branded push alerts, in-call verification, and post-call feedback.</p><ul><li>In-call verification UI — green when the call is genuinely yours, red when it isn't</li><li>iOS Live Activities for the in-progress call</li><li>Branded push: "Your courier is calling"</li><li>Post-call rating and issue-report components</li></ul></div><div class="ph" style="height:380px">Product visual · iOS + Android verification screens</div></div>
+<div class="prod" id="analytics" style="border-bottom:0"><div><div class="eyebrow">04 · Analytics</div><h2>See every call. Store no numbers.</h2><p>Call volume, answer rates, session outcomes and pool utilisation — per tenant, filterable, and metered for billing.</p><ul><li>Usage summaries that drive your invoice</li><li>Call analytics with date and status filters</li><li>Live pool utilisation and number health</li><li>Prometheus metrics endpoint for your own dashboards</li></ul></div><div class="ph" style="height:380px">Product visual · analytics dashboard</div></div>
+</div>
+<section class="dark" id="pricing"><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Pricing</div><h2>Priced in naira. Billed by usage.</h2><p>No platform fee. Every tier includes voice, SMS and the SDKs, with an allowance on each metric and a per-unit rate beyond it.</p></div>
+<div class="grid g3">
+<div class="card tier"><h3>Starter</h3><div class="pr">For pilots and small fleets</div>
+<dl>
+<dt>Sessions</dt><dd><b>100</b> included, then ₦5.00 each</dd>
+<dt>Voice</dt><dd><b>1,000 min</b> included, then ₦8.00/min</dd>
+<dt>SMS sent</dt><dd><b>500</b> included, then ₦4.00 each</dd>
+<dt>Numbers</dt><dd><b>2</b> included, then ₦500/number/mo</dd>
+</dl>
+<a href="contact.html" class="btn btn-s">Request access</a></div>
+<div class="card tier hi" style="border-color:var(--sig)"><h3>Growth</h3><div class="pr">For scaling operations</div>
+<dl>
+<dt>Sessions</dt><dd><b>1,000</b> included, then ₦3.00 each</dd>
+<dt>Voice</dt><dd><b>10,000 min</b> included, then ₦6.50/min</dd>
+<dt>SMS sent</dt><dd><b>5,000</b> included, then ₦3.20 each</dd>
+<dt>Numbers</dt><dd><b>10</b> included, then ₦450/number/mo</dd>
+</dl>
+<a href="contact.html" class="btn btn-g">Request access</a></div>
+<div class="card tier"><h3>Enterprise</h3><div class="pr">For high-volume marketplaces</div>
+<dl>
+<dt>Sessions</dt><dd><b>10,000</b> included, then ₦1.00 each</dd>
+<dt>Voice</dt><dd><b>100,000 min</b> included, then ₦5.00/min</dd>
+<dt>SMS sent</dt><dd><b>50,000</b> included, then ₦2.50 each</dd>
+<dt>Numbers</dt><dd><b>50</b> included, then ₦400/number/mo</dd>
+</dl>
+<a href="contact.html" class="btn btn-s">Talk to us</a></div>
+</div>
+<p class="pricenote">Inbound SMS is not billed on any tier. Rates are the metered rates currently configured in the billing system and may change before general availability — we'll confirm your rates in writing before you go live.</p>
+</div></section>
+<script src="site.js"></script>
+</body></html>

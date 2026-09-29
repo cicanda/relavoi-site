@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact · Relavoi</title>
+<meta name="description" content="Talk to Relavoi about number masking for your platform — pilot access, pricing and integration support.">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<style>
+.ct{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+@media(max-width:900px){.ct{grid-template-columns:1fr}}
+.chan{padding:22px 0;border-bottom:1px solid var(--ink-2)}
+.chan h4{margin:0;font-size:16px;font-weight:500}.chan p{color:var(--ink-5);font-size:14px;margin-top:4px}
+.chan a{font-family:'IBM Plex Mono';font-size:14px;display:inline-block;margin-top:8px}
+.form{display:grid;gap:18px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.row2{grid-template-columns:1fr}}
+.hint{font:400 12px/1.6 'IBM Plex Mono';color:var(--ink-5)}
+</style></head>
+<body data-page="contact">
+<header class="phero"><div class="wrap"><div class="eyebrow">Contact</div><h1>Let's talk about your call traffic.</h1><p>Tell us about your platform and we'll get back to you within one business day.</p></div></header>
+<section><div class="wrap"><div class="ct">
+<div>
+<div class="chan" style="padding-top:0"><h4>Sales</h4><p>Pricing, pilots and enterprise pools.</p><a href="mailto:sales@relavoi.com">sales@relavoi.com</a></div>
+<div class="chan"><h4>Developer support</h4><p>Integration help for pilot partners.</p><a href="mailto:support@relavoi.com">support@relavoi.com</a></div>
+<div class="chan" style="border:0"><h4>Office</h4><p>Lagos, Nigeria</p><p class="mono" style="font-size:12px;margin-top:8px">Mon–Fri, 9:00–18:00 WAT</p></div>
+</div>
+<div class="card" style="padding:36px">
+<form class="form" id="f">
+<div class="row2"><div><label class="l" for="n">Full name</label><input class="input" id="n" name="name" required></div><div><label class="l" for="e">Work email</label><input class="input" id="e" name="email" type="email" required></div></div>
+<div class="row2"><div><label class="l" for="c">Company</label><input class="input" id="c" name="company"></div><div><label class="l" for="i">Industry</label><select class="input" id="i" name="industry"><option>Ride-hailing</option><option>Delivery</option><option>E-commerce</option><option>Logistics</option><option>Healthcare</option><option>Other</option></select></div></div>
+<div><label class="l" for="v">Expected sessions per day</label><select class="input" id="v" name="volume"><option>Under 500</option><option>500 – 2,000</option><option>2,000 – 10,000</option><option>10,000+</option></select></div>
+<div><label class="l" for="m">What are you building?</label><textarea class="input" id="m" name="message"></textarea></div>
+<button class="btn btn-p" style="justify-self:start" type="submit">Compose email →</button>
+<p class="hint">This opens your mail client with the details filled in, addressed to sales@relavoi.com.</p>
+</form>
+</div>
+</div></div></section>
+<script>
+document.getElementById('f').addEventListener('submit',function(ev){
+  ev.preventDefault();
+  var f=ev.target,g=function(n){return (f.elements[n]&&f.elements[n].value||'').trim()};
+  var subject='Relavoi enquiry — '+(g('company')||g('name')||'new enquiry');
+  var body=['Name: '+g('name'),'Email: '+g('email'),'Company: '+g('company'),
+            'Industry: '+g('industry'),'Expected sessions/day: '+g('volume'),
+            '','What we\'re building:',g('message')].join('\n');
+  window.location.href='mailto:sales@relavoi.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+});
+</script>
+<script src="site.js"></script>
+</body></html>

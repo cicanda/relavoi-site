@@ -11,9 +11,14 @@ live platform.
 
 ```
 site/
-  index.html   home page
-  site.css     design system (colors, type, nav/footer, cards, buttons)
-  site.js      injects the shared nav + footer into every page
+  index.html          home
+  products.html       voice, SMS, SDKs, analytics, pricing
+  how-it-works.html   five-step walkthrough + session lifecycle
+  developers.html     API, SDKs, webhook contract
+  about.html          story, principles, where the product actually is
+  contact.html        channels + enquiry form
+  site.css            design system (colors, type, nav/footer, cards, buttons)
+  site.js             injects the shared nav + footer into every page
 ```
 
 `site.js` renders the nav and footer at runtime, so every page needs
@@ -31,10 +36,11 @@ cd site && python3 -m http.server 8000   # → http://localhost:8000
 
 ## Status
 
-Only `index.html` is implemented. The nav links to five pages that exist in the
-design project but have not been ported yet, so they 404 for now:
-`products.html`, `how-it-works.html`, `developers.html`, `about.html`,
-`contact.html`.
+All six pages are ported. Blockers before this can go public are listed under
+**Open items** in [`CLAIMS.md`](./CLAIMS.md) — the short version: `relavoi.com`
+has no DNS record (so the `@relavoi.com` addresses on the contact page bounce),
+the contact form has no backend and falls back to `mailto:`, and the published
+pricing needs commercial sign-off.
 
 ## Copy rules
 
@@ -51,3 +57,7 @@ Three that keep resurfacing:
    measured median. Don't quote uptime until it's actually recorded.
 3. **Relavoi is not NCC licensed.** Numbers are provisioned through Africa's
    Talking, which holds the approvals. Say it that way.
+4. **Prices are a commitment.** The naira rates on `products.html` mirror
+   `pricing-seed.ts` in the backend. If one changes, change the other.
+5. **Only link docs URLs you've actually loaded.** Several deep links in the
+   original template 404 on the deployed docs build.
