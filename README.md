@@ -48,7 +48,7 @@ Read [`CLAIMS.md`](./CLAIMS.md) before editing any text. It records the source
 for every factual claim on the site and lists the ones removed from the original
 template as unsupported.
 
-Three that keep resurfacing:
+The ones that keep resurfacing:
 
 1. **No customer names** until there is a signed customer who has agreed to be
    named. The original template listed five real Nigerian companies we have no
