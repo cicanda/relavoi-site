@@ -30,7 +30,7 @@
 </div></section>
 <section class="dark" id="webhooks"><div class="wrap">
 <div class="grid g2" style="gap:64px">
-<div><div class="eyebrow">Webhooks</div><h2 style="font-size:44px;line-height:1.05;margin-top:16px">Every event, HMAC-signed.</h2><p style="font-size:17px;margin-top:18px">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret — it's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p>
+<div><div class="eyebrow">Webhooks</div><h2 style="font-size:44px;line-height:1.05;margin-top:16px">Every event, HMAC-signed.</h2><p style="font-size:17px;margin-top:18px">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p>
 <div style="margin-top:32px">
 <div class="ev"><span class="mono">session.created</span><span>Proxy allocated, session live</span></div>
 <div class="ev"><span class="mono">call.incoming</span><span>A party dialed the proxy</span></div>

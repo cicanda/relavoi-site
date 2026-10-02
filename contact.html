@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact · Relavoi</title>
 <link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="Talk to Relavoi about number masking for your platform — pilot access, pricing and integration support.">
+<meta name="description" content="Talk to Relavoi about number masking for your platform: pilot access, pricing and integration support.">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
 <style>
 .ct{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
@@ -36,7 +36,7 @@
 document.getElementById('f').addEventListener('submit',function(ev){
   ev.preventDefault();
   var f=ev.target,g=function(n){return (f.elements[n]&&f.elements[n].value||'').trim()};
-  var subject='Relavoi enquiry — '+(g('company')||g('name')||'new enquiry');
+  var subject='Relavoi enquiry: '+(g('company')||g('name')||'new enquiry');
   var body=['Name: '+g('name'),'Email: '+g('email'),'Company: '+g('company'),
             'Industry: '+g('industry'),'Expected sessions/day: '+g('volume'),
             '','What we\'re building:',g('message')].join('\n');
