@@ -62,6 +62,7 @@ label.l{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var
 .foot .cols{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px}
 .foot h4{margin:0 0 16px;font:500 12px/1 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#fff}
 .foot a{color:var(--ink-4);display:block;padding:5px 0}.foot a:hover{color:#fff}
+.foot .bot a{display:inline;padding:0;text-decoration:underline;text-underline-offset:2px}
 .foot .logo{color:#fff}
 .foot .bot{margin-top:64px;padding-top:24px;border-top:1px solid var(--ink-7);display:flex;justify-content:space-between;font:400 12px 'IBM Plex Mono';flex-wrap:wrap;gap:12px}
 @media(max-width:900px){.foot .cols{grid-template-columns:1fr 1fr}}

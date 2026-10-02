@@ -1,6 +1,6 @@
 # relavoi-site
 
-Public marketing site for Relavoi — number-masking infrastructure for the
+Public marketing site for Relavoi: number-masking infrastructure for the
 Nigerian market. Static HTML/CSS/JS, no build step.
 
 Imported from the **NMaaS** Claude Design project
@@ -9,12 +9,12 @@ live platform.
 
 ## Layout
 
-Pages live at the **repo root**, not in a subfolder — Vercel serves this repo
+Pages live at the **repo root**, not in a subfolder. Vercel serves this repo
 from its root, so `index.html` has to be there or `/` 404s.
 
 Brand assets (`logo.svg`, `logo-dark.svg`, `favicon.*`, `apple-touch-icon.png`)
 are copied from `relavoi-dashboard/src/app/`, which is the canonical source for
-the mark — a green `#5BC97A` rounded square with a dark `#0B1220` "R". The admin
+the mark: a green `#5BC97A` rounded square with a dark `#0B1220` "R". The admin
 console carries a byte-identical copy. `logo-dark.svg` is the same mark with the
 two colours swapped, for the light nav bar; `logo.svg` is the canonical form,
 used on the dark footer. If the mark ever changes, change it in the dashboard
@@ -39,7 +39,7 @@ site.js             injects the shared nav + footer into every page
 ```
 
 `site.js` renders the nav and footer at runtime, so every page needs
-`<body data-page="…">` and `<script src="site.js">` — the `data-page` value
+`<body data-page="…">` and `<script src="site.js">`. The `data-page` value
 matches the third element of each entry in the `links` array and drives the
 active nav state.
 
@@ -51,12 +51,12 @@ Any static server; `file://` also works.
 python3 -m http.server 8000   # → http://localhost:8000
 ```
 
-Or just `open index.html` — nothing does `fetch`, so `file://` renders fully.
+Or just `open index.html`. Nothing does `fetch`, so `file://` renders fully.
 
 ## Status
 
 All six pages are ported. Blockers before this can go public are listed under
-**Open items** in [`CLAIMS.md`](./CLAIMS.md) — the short version: `relavoi.com`
+**Open items** in [`CLAIMS.md`](./CLAIMS.md). The short version: `relavoi.com`
 has no DNS record (so the `@relavoi.com` addresses on the contact page bounce),
 the contact form has no backend and falls back to `mailto:`, and the published
 pricing needs commercial sign-off.
@@ -75,8 +75,8 @@ The ones that keep resurfacing:
 2. **Targets are labelled as targets.** `<500ms` is a performance budget, not a
    measured median. Don't quote uptime until it's actually recorded.
 3. **Relavoi is not NCC licensed**, and **never name the CPaaS provider.**
-   Numbers are provisioned through a carrier gateway that holds the approvals —
-   say "NCC-licensed carriers", never the supplier's name.
+   Numbers are provisioned through a carrier gateway that holds the approvals.
+   Say "NCC-licensed carriers", never the supplier's name.
 4. **Prices are a commitment.** The naira rates on `products.html` mirror
    `pricing-seed.ts` in the backend. If one changes, change the other.
 5. **Only link docs URLs you've actually loaded.** Several deep links in the
