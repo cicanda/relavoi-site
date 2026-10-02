@@ -12,6 +12,13 @@ live platform.
 Pages live at the **repo root**, not in a subfolder — Vercel serves this repo
 from its root, so `index.html` has to be there or `/` 404s.
 
+`vercel.json` sets `cleanUrls`, so the canonical public URLs have no extension
+(`/products`, not `/products.html`). Internal links in `site.js` deliberately
+keep the `.html` suffix: Vercel 308-redirects them to the clean form, and
+keeping the extension is what lets the same files work unchanged over `file://`
+and a plain `python3 -m http.server`, neither of which resolves extensionless
+paths. The cost is one redirect hop per nav click.
+
 ```
 index.html          home
 products.html       voice, SMS, SDKs, analytics, pricing
