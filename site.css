@@ -17,7 +17,7 @@ p{margin:0;text-wrap:pretty}
 .nav{position:sticky;top:0;z-index:50;background:rgba(245,242,236,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--ink-2)}
 .nav .wrap{display:flex;align-items:center;gap:32px;height:68px}
 .logo{display:flex;align-items:center;gap:10px;font:600 18px/1 'IBM Plex Sans';letter-spacing:-.02em}
-.logo i{width:30px;height:30px;border-radius:7px;background:var(--ink);color:var(--sig);display:grid;place-items:center;font:700 15px/1 'IBM Plex Mono';font-style:normal}
+.logo .mark{width:30px;height:30px;border-radius:7px;display:block;flex:0 0 auto}
 .nav-links{display:flex;gap:4px;flex:1}
 .nav-links a{padding:8px 12px;border-radius:6px;font-size:14px;color:var(--ink-6)}
 .nav-links a:hover{background:var(--ink-1);color:var(--ink)}
@@ -62,7 +62,7 @@ label.l{display:block;font-size:13px;font-weight:500;margin-bottom:6px;color:var
 .foot .cols{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:32px}
 .foot h4{margin:0 0 16px;font:500 12px/1 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:#fff}
 .foot a{color:var(--ink-4);display:block;padding:5px 0}.foot a:hover{color:#fff}
-.foot .logo{color:#fff}.foot .logo i{background:var(--sig);color:var(--ink)}
+.foot .logo{color:#fff}
 .foot .bot{margin-top:64px;padding-top:24px;border-top:1px solid var(--ink-7);display:flex;justify-content:space-between;font:400 12px 'IBM Plex Mono';flex-wrap:wrap;gap:12px}
 @media(max-width:900px){.foot .cols{grid-template-columns:1fr 1fr}}
 .cta-band{background:var(--ink);color:#fff;border-radius:20px;padding:64px;display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}

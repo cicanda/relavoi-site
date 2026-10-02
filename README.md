@@ -12,6 +12,14 @@ live platform.
 Pages live at the **repo root**, not in a subfolder — Vercel serves this repo
 from its root, so `index.html` has to be there or `/` 404s.
 
+Brand assets (`logo.svg`, `logo-dark.svg`, `favicon.*`, `apple-touch-icon.png`)
+are copied from `relavoi-dashboard/src/app/`, which is the canonical source for
+the mark — a green `#5BC97A` rounded square with a dark `#0B1220` "R". The admin
+console carries a byte-identical copy. `logo-dark.svg` is the same mark with the
+two colours swapped, for the light nav bar; `logo.svg` is the canonical form,
+used on the dark footer. If the mark ever changes, change it in the dashboard
+first and re-copy, rather than editing it here.
+
 `vercel.json` sets `cleanUrls`, so the canonical public URLs have no extension
 (`/products`, not `/products.html`). Internal links in `site.js` deliberately
 keep the `.html` suffix: Vercel 308-redirects them to the clean form, and
