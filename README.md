@@ -9,16 +9,18 @@ live platform.
 
 ## Layout
 
+Pages live at the **repo root**, not in a subfolder — Vercel serves this repo
+from its root, so `index.html` has to be there or `/` 404s.
+
 ```
-site/
-  index.html          home
-  products.html       voice, SMS, SDKs, analytics, pricing
-  how-it-works.html   five-step walkthrough + session lifecycle
-  developers.html     API, SDKs, webhook contract
-  about.html          story, principles, where the product actually is
-  contact.html        channels + enquiry form
-  site.css            design system (colors, type, nav/footer, cards, buttons)
-  site.js             injects the shared nav + footer into every page
+index.html          home
+products.html       voice, SMS, SDKs, analytics, pricing
+how-it-works.html   five-step walkthrough + session lifecycle
+developers.html     API, SDKs, webhook contract
+about.html          story, principles, where the product actually is
+contact.html        channels + enquiry form
+site.css            design system (colors, type, nav/footer, cards, buttons)
+site.js             injects the shared nav + footer into every page
 ```
 
 `site.js` renders the nav and footer at runtime, so every page needs
@@ -31,8 +33,10 @@ active nav state.
 Any static server; `file://` also works.
 
 ```bash
-cd site && python3 -m http.server 8000   # → http://localhost:8000
+python3 -m http.server 8000   # → http://localhost:8000
 ```
+
+Or just `open index.html` — nothing does `fetch`, so `file://` renders fully.
 
 ## Status
 
