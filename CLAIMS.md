@@ -12,7 +12,7 @@ Verified against the live platform and the backend source on 2026-09-28.
 |---|---|---|
 | Nigerian market, Lagos number pool | `proxy_numbers` region `lagos`; `GET /v1/numbers/pool` | Single region. Multi-country is a Phase 4 item — do not imply it. |
 | Private beta | No self-service onboarding; tenant provisioning is manual | Phase 3 item. |
-| Calls run over PSTN, reach any handset | `CLAUDE.md` § Network Resilience; `<Dial>` via Africa's Talking | Genuinely differentiating — feature phones work. |
+| Calls run over PSTN, reach any handset | `CLAUDE.md` § Network Resilience; `<Dial>` via the carrier gateway | Genuinely differentiating — feature phones work. |
 | `<500ms` call-routing budget, p99 | `CLAUDE.md` § Performance Targets | **Target, not a measurement.** Page labels it as such. |
 | 15 min default grace period | `SESSION_DEFAULT_GRACE_PERIOD_MINUTES`, `tenants.default_grace_period` | Per-tenant override live since `a5aab54`. |
 | 120 min default session cap | `SESSION_DEFAULT_MAX_DURATION_MINUTES`, `tenants.default_session_ttl_min` | Verified in live session responses. |
@@ -40,16 +40,16 @@ Verified against the live platform and the backend source on 2026-09-28.
 | "412ms median call setup" | Fabricated. No such measurement exists. |
 | "99.98% API uptime, trailing 30 days" | Fabricated. No uptime record; 99.9% is a target. |
 | "3,200+ proxy numbers across 6 regions" | Pool holds **1** number in **1** region. |
-| "4 carriers: MTN, Airtel, Glo, 9mobile" | Those are the networks end users happen to be on. Relavoi holds no carrier relationships — numbers come via Africa's Talking. |
+| "4 carriers: MTN, Airtel, Glo, 9mobile" | Those are the networks end users happen to be on. Relavoi holds no direct carrier relationships — numbers come via the CPaaS provider. |
 | "Sub-500ms routing" as achieved fact | It's a target. Reworded and labelled. |
 | Logistics "multi-party masked chain" | Data model is two-party only. |
 | Marketplace `ttl 72h` | Exceeds the 120-min default; would need an explicit override. Shown as 24h. |
 | "Sandbox numbers included on every account" | No self-service accounts exist. |
 | "Go live once your pool is provisioned — usually the same week" | `POST /numbers/provision` is a `501` stub; provisioning is manual. |
-| "NCC licensed" (footer) | **Relavoi is not NCC licensed.** Africa's Talking holds the NCC approvals. Corrected to "Numbers via NCC-licensed carriers". |
+| "NCC licensed" (footer) | **Relavoi is not NCC licensed.** The CPaaS provider holds the NCC approvals. Corrected to "Numbers via NCC-licensed carriers". |
 | "NDPR compliant" (footer) | Self-assessed, no audit. Softened to "NDPR-aligned". |
 | Live DID in the hero diagram | The pool's one real number is not published. Diagram numbers are illustrative and labelled as such. |
-| "region LOS-01 · carrier MTN · 38ms" | Region label is `lagos`, provider is `AFRICASTALKING` (not a carrier), and the 38ms was invented. |
+| "region LOS-01 · carrier MTN · 38ms" | Region label is `lagos`, the provider is the CPaaS gateway (not a carrier), and the 38ms was invented. |
 | "Automatic failover to secondary CPaaS providers" | The circuit breaker is real, but **no Twilio numbers exist in any pool** and `TWILIO_ACCOUNT_SID` is empty. Nothing to fail over to. Reworded as health monitoring + roadmap. |
 | Node.js and Python SDKs | Neither exists. Only iOS, Android and Flutter. |
 | SDK version `2.4.1` | Invented. No published release carries that version. |

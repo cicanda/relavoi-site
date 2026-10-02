@@ -66,8 +66,9 @@ The ones that keep resurfacing:
    relationship with.
 2. **Targets are labelled as targets.** `<500ms` is a performance budget, not a
    measured median. Don't quote uptime until it's actually recorded.
-3. **Relavoi is not NCC licensed.** Numbers are provisioned through Africa's
-   Talking, which holds the approvals. Say it that way.
+3. **Relavoi is not NCC licensed**, and **never name the CPaaS provider.**
+   Numbers are provisioned through a carrier gateway that holds the approvals —
+   say "NCC-licensed carriers", never the supplier's name.
 4. **Prices are a commitment.** The naira rates on `products.html` mirror
    `pricing-seed.ts` in the backend. If one changes, change the other.
 5. **Only link docs URLs you've actually loaded.** Several deep links in the

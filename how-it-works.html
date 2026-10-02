@@ -20,7 +20,7 @@
   <span class="s">"customerPhone"</span>: <span class="s">"+2349091231192"</span>,
   <span class="s">"gracePeriodMinutes"</span>: 15,
   <span class="s">"metadata"</span>: { <span class="s">"orderId"</span>: <span class="s">"ORD-9281"</span> } }</div></div>
-<div class="step"><div class="num">02</div><div><h3>We allocate a proxy number</h3><p>An atomic Redis allocator takes a number from the pool for the requested region, guaranteeing no participant overlap with any other live session on that number.</p></div><div class="card"><div class="eyebrow">Allocated</div><div class="mono" style="font-size:24px;margin-top:10px">+234 201 342 0117</div><p class="mono" style="font-size:12px;margin-top:8px">region lagos · provider AFRICASTALKING</p></div></div>
+<div class="step"><div class="num">02</div><div><h3>We allocate a proxy number</h3><p>An atomic Redis allocator takes a number from the pool for the requested region, guaranteeing no participant overlap with any other live session on that number.</p></div><div class="card"><div class="eyebrow">Allocated</div><div class="mono" style="font-size:24px;margin-top:10px">+234 201 342 0117</div><p class="mono" style="font-size:12px;margin-top:8px">region lagos · allocated atomically</p></div></div>
 <div class="step"><div class="num">03</div><div><h3>Either party dials the proxy</h3><p>No app required. The call reaches the carrier network, arrives at Relavoi, and our router identifies the caller and bridges to the other side — against a sub-500ms p99 budget.</p></div><div class="ph" style="height:180px">Diagram · caller → carrier → Relavoi → callee</div></div>
 <div class="step"><div class="num">04</div><div><h3>Your app hears everything</h3><p>HMAC-signed webhooks and WebSocket events stream every state change: incoming, answered, ended, failed. The SDKs turn these into branded push alerts and in-call verification UI.</p></div><div class="code" style="font-size:12px"><span class="s">call.incoming</span>   14:21:28
 <span class="s">call.answered</span>   14:21:32
@@ -32,10 +32,10 @@
 <div class="states"><span class="s">PENDING</span><span class="a">→</span><span class="s" style="border-color:var(--sig);color:var(--sig)">ACTIVE</span><span class="a">→</span><span class="s" style="border-color:var(--amber);color:var(--amber)">GRACE_PERIOD</span><span class="a">→</span><span class="s">EXPIRED</span><span class="a" style="margin-left:24px">or</span><span class="s" style="border-color:var(--terra);color:var(--terra)">FAILED</span></div>
 <div class="grid g3" style="margin-top:56px">
 <div class="card"><h3 style="margin-top:0">Atomic allocation</h3><p>Allocation and overlap checks run as one Redis Lua script. Two sessions can never race onto the same proxy for the same participant.</p></div>
-<div class="card"><h3 style="margin-top:0">Provider health monitoring</h3><p>Africa's Talking is the primary carrier gateway. A circuit breaker tracks its error rate and trips on sustained failure. Secondary-provider pools are on the roadmap, not yet provisioned.</p></div>
+<div class="card"><h3 style="margin-top:0">Provider health monitoring</h3><p>A circuit breaker tracks the carrier gateway's error rate and trips on sustained failure. Secondary-provider pools are on the roadmap, not yet provisioned.</p></div>
 <div class="card"><h3 style="margin-top:0">Idempotent webhooks</h3><p>Duplicate carrier events never create duplicate call legs — the routing decision is cached by event ID and replayed verbatim. Failed events land in a monitored dead-letter queue.</p></div>
 </div>
 </div></section>
-<section><div class="wrap"><div class="cta-band"><div><h2>See it with your own numbers.</h2><p>Pilot partners get a provisioned number pool and can build against the Africa's Talking sandbox first.</p></div><a href="developers.html" class="btn btn-g">Open the docs</a></div></div></section>
+<section><div class="wrap"><div class="cta-band"><div><h2>See it with your own numbers.</h2><p>Pilot partners get a provisioned number pool and can build against the sandbox first.</p></div><a href="developers.html" class="btn btn-g">Open the docs</a></div></div></section>
 <script src="site.js"></script>
 </body></html>
