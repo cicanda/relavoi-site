@@ -2,36 +2,88 @@
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Products · Relavoi</title>
 <link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Voice and SMS masking over Nigerian PSTN, mobile SDKs for iOS, Android and Flutter, usage analytics, and naira-denominated metered pricing.">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
 <style>
-.prod{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:88px 0;border-bottom:1px solid var(--ink-2)}
-.prod:nth-child(even) .ph{order:-1}
-.prod h2{font-size:40px;line-height:1.05;margin-top:14px}
+.prod{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(32px,6vw,72px);align-items:center;padding:clamp(40px,6vw,72px) 0}
+.prod>*{min-width:0}
+.prod:nth-child(even) .stage{order:-1}
+.prod h2{font-size:clamp(28px,3.4vw,40px);line-height:1.08;margin-top:18px}
 .prod p{font-size:17px;color:var(--ink-5);margin-top:16px}
-.prod ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:10px}
-.prod li{display:flex;gap:10px;font-size:15px}.prod li::before{content:'→';color:var(--sig-6);font-family:'IBM Plex Mono'}
-@media(max-width:900px){.prod{grid-template-columns:1fr}.prod:nth-child(even) .ph{order:0}}
+.prod ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.prod li{display:flex;gap:12px;font-size:15px;align-items:flex-start}
+.prod li::before{content:"";flex:0 0 20px;height:20px;margin-top:1px;border-radius:50%;background:var(--sig-1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5' stroke='%231F7A40' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center no-repeat}
+.stage.tall{min-height:460px}
+.m-voice{width:min(300px,100%)}
+.m-voice .st{margin-bottom:18px}
+.m-sms{width:min(300px,100%);padding:0;overflow:hidden}
+.m-sms-head{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);font:500 13px/1.3 var(--mono);color:var(--ink-6)}
+.m-sms-body{display:grid;gap:10px;padding:18px}
+.bub{max-width:80%;padding:10px 14px;border-radius:16px;font-size:14px;line-height:1.4}
+.bub.in{background:var(--bone);border-bottom-left-radius:4px}
+.bub.out{justify-self:end;background:var(--ink);border-bottom-right-radius:4px;display:grid;gap:6px;width:62%}
+.bub.out .sk{background:rgba(255,255,255,.22)}
+.m-sms-foot{display:flex;justify-content:flex-end;padding:0 18px 18px}
+.phone{width:216px;padding:10px;border-radius:38px;background:var(--ink);box-shadow:var(--sh-2)}
+.phone-scr{position:relative;border-radius:30px;background:linear-gradient(180deg,#F7F5F0,#fff);padding:44px 14px 22px;min-height:360px;display:flex;flex-direction:column;align-items:center}
+.phone-scr::before{content:"";position:absolute;top:10px;left:50%;width:70px;height:20px;margin-left:-35px;border-radius:99px;background:var(--ink)}
+.push{display:flex;gap:10px;align-items:center;width:100%;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.95);box-shadow:0 8px 24px -12px rgba(11,18,32,.35);border:1px solid var(--line);font-size:13px;font-weight:500;line-height:1.3}
+.push img{width:28px;height:28px;border-radius:7px;flex:0 0 auto}
+.verify{margin-top:34px;width:84px;height:84px;border-radius:50%;background:var(--sig);color:var(--ink);display:grid;place-items:center;box-shadow:0 0 0 10px rgba(91,201,122,.2),0 0 0 22px rgba(91,201,122,.1)}
+.verify svg{width:38px;height:38px}
+.phone .sk{margin-top:12px}
+.call-btns{margin-top:auto;display:flex;gap:44px;padding-top:24px}
+.call-btns span{width:44px;height:44px;border-radius:50%;background:var(--terra)}
+.call-btns span+span{background:var(--sig)}
+.m-an{position:relative;width:min(340px,100%)}
+.m-chart .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.bars{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;height:150px;margin-top:22px}
+.bars div{flex:1;max-width:24px;display:flex;flex-direction:column;justify-content:flex-end;gap:3px}
+.bars i{display:block;border-radius:5px;background:var(--ink)}
+.bars i:nth-child(2){background:var(--sig)}
+.bars i:nth-child(3){background:var(--sig-2)}
+.m-mini{position:absolute;right:-18px;bottom:-34px;width:150px;padding:14px}
+.m-mini svg{width:100%;height:44px;margin-top:10px}
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
+.tier{display:flex;flex-direction:column}
 .tier h3{margin:0;font-size:22px}
-.tier .pr{font:500 15px/1.5 'IBM Plex Mono';margin:18px 0 4px;color:var(--ink-5)}
-.tier dl{margin:22px 0 28px;display:grid;gap:14px;font-size:14px}
-.tier dt{font:500 11px/1 'IBM Plex Mono';letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
-.tier dd{margin:4px 0 0;color:var(--ink-6)}
-.tier dd b{font-weight:500;color:var(--ink)}
-.tier.hi{background:var(--ink);color:#fff;border-color:var(--ink)}
-.tier.hi p,.tier.hi .pr{color:var(--ink-4)}.tier.hi dd{color:var(--ink-2)}.tier.hi dd b{color:#fff}
-.pricenote{margin-top:40px;font:400 13px/1.7 'IBM Plex Mono';color:var(--ink-5);max-width:760px}
+.tier .pr{font:500 14px/1.5 var(--mono);margin-top:8px;color:var(--ink-5)}
+.tier dl{flex:1;margin:24px 0 28px;padding-top:24px;border-top:1px solid var(--line);display:grid;align-content:start;font-size:14px}
+.tier dt{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-5)}
+.tier dd{margin:8px 0 20px;color:var(--ink-6)}
+.tier dd:last-child{margin-bottom:0}
+.tier dd b{font-weight:600;color:var(--ink)}
+.tier .btn{width:100%}
+.tier.hi{color:#fff;border:1.5px solid var(--sig);background:radial-gradient(80% 60% at 100% 0%,rgba(91,201,122,.22),transparent 60%),var(--ink);box-shadow:var(--sh-2),0 0 0 6px rgba(91,201,122,.12)}
+.tier.hi .pr,.tier.hi dt{color:var(--ink-4)}
+.tier.hi dd{color:var(--ink-2)}
+.tier.hi dd b{color:#fff}
+.tier.hi dl{border-color:rgba(255,255,255,.12)}
+.pricenote{margin:40px auto 0;font:400 13px/1.7 var(--mono);color:var(--ink-5);max-width:760px;text-align:center}
+@media(max-width:1024px){
+.prod{grid-template-columns:minmax(0,1fr)}
+.prod:nth-child(even) .stage{order:0}
+.tiers{grid-template-columns:minmax(0,1fr);max-width:540px;margin:0 auto}
+}
+@media(max-width:640px){
+.m-mini{right:-6px;bottom:-40px;width:130px}
+.stage.tall{min-height:440px}
+}
 </style></head>
 <body data-page="products">
-<header class="phero"><div class="wrap"><div class="eyebrow">Products</div><h1>One privacy layer. Every channel your users talk on.</h1><p>Voice and SMS masking, mobile SDKs, and the analytics to prove it's working.</p></div></header>
+<header class="phero"><div class="wrap"><div class="chip">Products</div><h1>One privacy layer. Every channel your users talk on.</h1><p>Voice and SMS masking, mobile SDKs, and the analytics to prove it's working.</p></div></header>
 <div class="wrap">
-<div class="prod" id="voice"><div><div class="eyebrow">01 · Voice masking</div><h2>Bidirectional proxy calling over PSTN</h2><p>Both parties dial a temporary proxy. Relavoi identifies the caller and bridges to the other side. Each sees only the proxy.</p><ul><li>Region-scoped number pools (Lagos today)</li><li>Configurable session cap and grace period, per tenant or per session</li><li>Recording gated behind an enforced NDPR consent prompt</li><li>Expired-session behaviour: dead line, redirect to support, or custom message</li><li>One-way modes when you only want A→B or B→A to connect</li></ul></div><div class="ph" style="height:380px">Product visual · voice bridge diagram</div></div>
-<div class="prod" id="sms"><div><div class="eyebrow">02 · SMS masking</div><h2>Texts through the same proxy</h2><p>"I'm at the gate" works too. SMS routes through the session's proxy number with delivery status in your webhook stream.</p><ul><li>Same session, same proxy, same audit trail</li><li>Delivery status via <span class="mono">sms.sent</span> webhooks</li><li>Message bodies encrypted at rest, metered per message</li><li>Inbound SMS is not billed</li></ul></div><div class="ph" style="height:380px">Product visual · masked SMS thread</div></div>
-<div class="prod" id="sdk"><div><div class="eyebrow">03 · Mobile SDKs</div><h2>Verified calls your customers trust</h2><p>SDKs for iOS, Android and Flutter add the trust layer PSTN can't: branded push alerts, in-call verification, and post-call feedback.</p><ul><li>In-call verification UI: green when the call is genuinely yours, red when it isn't</li><li>iOS Live Activities for the in-progress call</li><li>Branded push: "Your courier is calling"</li><li>Post-call rating and issue-report components</li></ul></div><div class="ph" style="height:380px">Product visual · iOS + Android verification screens</div></div>
-<div class="prod" id="analytics" style="border-bottom:0"><div><div class="eyebrow">04 · Analytics</div><h2>See every call. Store no numbers.</h2><p>Call volume, answer rates, session outcomes and pool utilisation, per tenant, filterable, and metered for billing.</p><ul><li>Usage summaries that drive your invoice</li><li>Call analytics with date and status filters</li><li>Live pool utilisation and number health</li><li>Prometheus metrics endpoint for your own dashboards</li></ul></div><div class="ph" style="height:380px">Product visual · analytics dashboard</div></div>
+<div class="prod" id="voice"><div><div class="chip">01 · Voice masking</div><h2>Bidirectional proxy calling over PSTN</h2><p>Both parties dial a temporary proxy. Relavoi identifies the caller and bridges to the other side. Each sees only the proxy.</p><ul><li>Region-scoped number pools (Lagos today)</li><li>Configurable session cap and grace period, per tenant or per session</li><li>Recording gated behind an enforced NDPR consent prompt</li><li>Expired-session behaviour: dead line, redirect to support, or custom message</li><li>One-way modes when you only want A→B or B→A to connect</li></ul></div>
+<div class="stage" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float m-voice"><span class="st">call.answered</span><div class="who"><div class="av">I</div><div><div class="r">Courier</div><div class="n">+234 803 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av g">H</div><div><div class="r">Customer</div><div class="n">+234 909 ••• 1192</div></div></div></div></div></div></div>
+<div class="prod" id="sms"><div><div class="chip">02 · SMS masking</div><h2>Texts through the same proxy</h2><p>"I'm at the gate" works too. SMS routes through the session's proxy number with delivery status in your webhook stream.</p><ul><li>Same session, same proxy, same audit trail</li><li>Delivery status via <span class="mono">sms.sent</span> webhooks</li><li>Message bodies encrypted at rest, metered per message</li><li>Inbound SMS is not billed</li></ul></div>
+<div class="stage" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-r"><div class="float m-sms"><div class="m-sms-head"><span class="proxy-chip" style="padding:6px;border-radius:50%"><span class="live"></span></span>+234 201 342 0117</div><div class="m-sms-body"><div class="bub in">I'm at the gate</div><div class="bub out"><span class="sk" style="width:100%"></span><span class="sk" style="width:60%"></span></div></div><div class="m-sms-foot"><span class="st">sms.sent</span></div></div></div></div></div>
+<div class="prod" id="sdk"><div><div class="chip">03 · Mobile SDKs</div><h2>Verified calls your customers trust</h2><p>SDKs for iOS, Android and Flutter add the trust layer PSTN can't: branded push alerts, in-call verification, and post-call feedback.</p><ul><li>In-call verification UI: green when the call is genuinely yours, red when it isn't</li><li>iOS Live Activities for the in-progress call</li><li>Branded push: "Your courier is calling"</li><li>Post-call rating and issue-report components</li></ul></div>
+<div class="stage dark tall" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="phone tilt-r"><div class="phone-scr"><div class="push"><img src="logo.svg" alt="">Your courier is calling</div><div class="verify"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><span class="sk" style="width:110px;margin-top:26px"></span><span class="sk" style="width:76px"></span><div class="call-btns"><span></span><span></span></div></div></div></div></div>
+<div class="prod" id="analytics"><div><div class="chip">04 · Analytics</div><h2>See every call. Store no numbers.</h2><p>Call volume, answer rates, session outcomes and pool utilisation, per tenant, filterable, and metered for billing.</p><ul><li>Usage summaries that drive your invoice</li><li>Call analytics with date and status filters</li><li>Live pool utilisation and number health</li><li>Prometheus metrics endpoint for your own dashboards</li></ul></div>
+<div class="stage" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="m-an"><div class="float m-chart tilt-l"><div class="row"><span class="sk" style="width:96px;height:10px;background:var(--ink-2)"></span><span class="sk" style="width:48px"></span></div><div class="bars"><div><i style="height:30px"></i><i style="height:22px"></i><i style="height:18px"></i></div><div><i style="height:44px"></i><i style="height:30px"></i><i style="height:22px"></i></div><div><i style="height:38px"></i><i style="height:36px"></i><i style="height:28px"></i></div><div><i style="height:52px"></i><i style="height:40px"></i><i style="height:26px"></i></div><div><i style="height:34px"></i><i style="height:28px"></i><i style="height:20px"></i></div><div><i style="height:24px"></i><i style="height:20px"></i><i style="height:14px"></i></div><div><i style="height:20px"></i><i style="height:16px"></i><i style="height:12px"></i></div></div></div><div class="float m-mini tilt-r"><span class="sk" style="width:70px"></span><svg viewBox="0 0 120 44" fill="none"><path d="M2 36 C18 34 22 22 36 24 S58 10 72 16 S96 6 118 4" stroke="#5BC97A" stroke-width="3" stroke-linecap="round"/></svg></div></div></div></div>
 </div>
-<section class="dark" id="pricing"><div class="wrap">
-<div class="sec-head"><div class="eyebrow">Pricing</div><h2>Priced in naira. Billed by usage.</h2><p>No platform fee. Every tier includes voice, SMS and the SDKs, with an allowance on each metric and a per-unit rate beyond it.</p></div>
-<div class="grid g3">
+<section id="pricing"><div class="wrap">
+<div class="sec-head"><div class="chip">Pricing</div><h2>Priced in naira. Billed by usage.</h2><p>No platform fee. Every tier includes voice, SMS and the SDKs, with an allowance on each metric and a per-unit rate beyond it.</p></div>
+<div class="tiers">
 <div class="card tier"><h3>Starter</h3><div class="pr">For pilots and small fleets</div>
 <dl>
 <dt>Sessions</dt><dd><b>100</b> included, then ₦5.00 each</dd>
@@ -40,14 +92,14 @@
 <dt>Numbers</dt><dd><b>2</b> included, then ₦500/number/mo</dd>
 </dl>
 <a href="https://app.relavoi.com/signup" class="btn btn-s">Request access</a></div>
-<div class="card tier hi" style="border-color:var(--sig)"><h3>Growth</h3><div class="pr">For scaling operations</div>
+<div class="card tier hi"><h3>Growth</h3><div class="pr">For scaling operations</div>
 <dl>
 <dt>Sessions</dt><dd><b>1,000</b> included, then ₦3.00 each</dd>
 <dt>Voice</dt><dd><b>10,000 min</b> included, then ₦6.50/min</dd>
 <dt>SMS sent</dt><dd><b>5,000</b> included, then ₦3.20 each</dd>
 <dt>Numbers</dt><dd><b>10</b> included, then ₦450/number/mo</dd>
 </dl>
-<a href="https://app.relavoi.com/signup" class="btn btn-g">Request access</a></div>
+<a href="https://app.relavoi.com/signup" class="btn btn-g">Request access<span class="arr" aria-hidden="true"></span></a></div>
 <div class="card tier"><h3>Enterprise</h3><div class="pr">For high-volume marketplaces</div>
 <dl>
 <dt>Sessions</dt><dd><b>10,000</b> included, then ₦1.00 each</dd>

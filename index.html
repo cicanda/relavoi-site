@@ -2,86 +2,130 @@
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Relavoi · Private calls for Nigeria's marketplaces</title>
 <link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Number-masking infrastructure for Nigerian ride-hailing, delivery, e-commerce and healthcare platforms. One API, real PSTN calls, no personal numbers exchanged.">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
 <style>
-.hero{padding:96px 0 0;overflow:hidden}
-.hero h1{font-size:84px;line-height:.95;letter-spacing:-.04em;max-width:960px;margin-top:24px}
+.hero{padding:clamp(48px,8vw,96px) 0 clamp(48px,7vw,88px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(40px,6vw,80px);align-items:center}
+.hero h1{font-size:clamp(40px,5.8vw,74px);line-height:1;letter-spacing:-.045em;margin-top:24px}
 .hero h1 em{font-style:normal;color:var(--sig-6)}
-.hero .lede{font-size:21px;color:var(--ink-5);max-width:620px;margin-top:28px}
-.hero .ctas{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap}
-.flow{margin-top:88px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:0;background:var(--paper);border:1px solid var(--ink-2);border-radius:20px 20px 0 0;border-bottom:0;padding:48px 48px 24px}
-.party{text-align:center}
-.party .av{width:64px;height:64px;border-radius:999px;background:var(--bone);margin:0 auto;display:grid;place-items:center;font:600 22px 'IBM Plex Sans'}
-.party .r{font:500 11px 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--ink-5);margin-top:14px}
-.party .n{font:500 15px 'IBM Plex Mono';margin-top:6px;color:var(--ink-4);text-decoration:line-through}
-.proxy{text-align:center;background:var(--ink);color:#fff;border-radius:14px;padding:22px 28px}
-.proxy .n{font:500 20px 'IBM Plex Mono';margin-top:8px}
-.line{height:2px;width:120px;background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px);background-size:24px 2px;animation:dash 1s linear infinite}
-@keyframes dash{to{background-position:24px 0}}
-.flow-note{background:var(--paper);border:1px solid var(--ink-2);border-bottom:0;padding:0 48px 28px;font:400 12px 'IBM Plex Mono';color:var(--ink-4);text-align:center}
-@media(max-width:900px){.hero h1{font-size:48px}.flow{grid-template-columns:1fr;gap:20px}.line{width:2px;height:40px;margin:0 auto;background:var(--ink)}}
-.logos{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:center;padding:40px 0}
-.logos span{font:600 20px 'IBM Plex Sans';color:var(--ink-4);letter-spacing:-.02em}
-.stat h3{font-size:56px;letter-spacing:-.03em}
-.stat p{color:var(--ink-4);margin-top:8px;font-size:15px}
-.statnote{margin-top:40px;font:400 13px/1.6 'IBM Plex Mono';color:var(--ink-5);max-width:720px}
-.vert{display:flex;flex-direction:column;justify-content:space-between;min-height:220px}
-.vert .ex{font:400 12px 'IBM Plex Mono';color:var(--ink-5);margin-top:24px}
+.hero .lede{font-size:clamp(17px,1.7vw,20px);max-width:560px;margin-top:24px}
+.hero-visual{position:relative}
+.hero-visual::before{content:"";position:absolute;inset:8% 0;background:radial-gradient(closest-side,rgba(91,201,122,.32),transparent);filter:blur(24px);z-index:-1}
+.flow{display:flex;flex-direction:column;max-width:420px;margin:0 auto}
+.flow .party{align-self:flex-start;padding:16px 20px}
+.flow .party:last-child{align-self:flex-end}
+.flow .who .n{text-decoration:line-through;text-decoration-color:var(--ink-4);color:var(--ink-5)}
+.flow .line{width:2px;height:44px;align-self:center;background:repeating-linear-gradient(180deg,var(--ink) 0 6px,transparent 6px 12px);background-size:2px 24px;animation:fdash 1s linear infinite}
+@keyframes fdash{to{background-position:0 24px}}
+.flow .proxy{align-self:center;text-align:center;background:var(--ink);color:#fff;border-radius:20px;padding:22px 28px;box-shadow:0 30px 60px -20px rgba(11,18,32,.55),0 0 0 8px rgba(91,201,122,.14)}
+.flow .proxy .eyebrow{color:var(--sig);display:flex;align-items:center;justify-content:center;gap:8px}
+.flow .proxy .n{font:500 clamp(17px,2vw,20px)/1.3 var(--mono);margin-top:10px;white-space:nowrap}
+.flow-note{margin-top:22px;text-align:center;font:400 12px/1.5 var(--mono);color:var(--ink-5)}
+.strip{display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.strip span:not(.eyebrow){font:600 clamp(19px,2vw,22px)/1.2 var(--sans);letter-spacing:-.03em;color:#6B7587}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(28px,4vw,48px)}
+.stat{padding:0 clamp(16px,2vw,28px);border-left:1px solid rgba(255,255,255,.1)}
+.stat:first-child{padding-left:0;border-left:0}
+.stat h3{font:500 clamp(32px,3.8vw,50px)/1 var(--mono);letter-spacing:-.04em;color:#fff;white-space:nowrap}
+.stat h3 span{font-size:.5em;color:var(--sig);margin-left:2px;letter-spacing:0}
+.stat p{margin-top:12px;font-size:15px}
+.statnote{margin-top:clamp(28px,4vw,48px);padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font:400 13px/1.6 var(--mono)}
+.sess{width:min(300px,100%)}
+.sess .proxy-chip{font-size:13px}
+.tab-copy{display:flex;flex-direction:column;align-items:flex-start}
+.tab-copy .badge{order:-1}
+@media(max-width:1024px){
+.hero-grid{grid-template-columns:minmax(0,1fr)}
+.hero-copy{text-align:center}
+.hero .lede{margin-inline:auto}
+.hero .btn-row{justify-content:center}
+.strip{justify-content:center}
+.strip .eyebrow{flex-basis:100%;text-align:center}
+.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 0}
+.stat:nth-child(3){padding-left:0;border-left:0}
+}
+@media(max-width:640px){
+.stat{padding:0 0 0 16px}
+.stat h3{font-size:clamp(26px,7.4vw,40px)}
+.stat p{font-size:14px}
+.strip span:not(.eyebrow){font-size:19px}
+}
 </style></head>
 <body data-page="home">
-<header class="hero"><div class="wrap">
+<header class="hero"><div class="wrap hero-grid">
+<div class="hero-copy">
 <span class="pill"><span class="dot"></span>Private beta · Lagos number pool</span>
 <h1>Connect your users. <em>Never expose</em> their numbers.</h1>
 <p class="lede">Relavoi is number-masking infrastructure for Nigerian ride-hailing, delivery, e-commerce and healthcare platforms. One API. Real phone calls on any handset. No personal numbers exchanged.</p>
-<div class="ctas"><a href="https://app.relavoi.com/signup" class="btn btn-p">Request pilot access →</a><a href="developers.html" class="btn btn-s">Read the API docs</a></div>
+<div class="btn-row"><a href="https://app.relavoi.com/signup" class="btn btn-p">Request pilot access <span class="arr">→</span></a><a href="developers.html" class="btn btn-s">Read the API docs</a></div>
+</div>
+<div class="hero-visual">
 <div class="flow">
-<div class="party"><div class="av">I</div><div class="r">Courier</div><div class="n">+234 803 ••• 4421</div></div>
-<div class="line"></div>
-<div class="proxy"><div class="eyebrow" style="color:var(--sig)">Relavoi proxy</div><div class="n">+234 201 342 0117</div></div>
-<div class="line"></div>
-<div class="party"><div class="av">H</div><div class="r">Customer</div><div class="n">+234 909 ••• 1192</div></div>
+<div class="float party tilt-l"><div class="who"><div class="av">I</div><div><div class="r">Courier</div><div class="n">+234 803 ••• 4421</div></div></div></div>
+<div class="line" aria-hidden="true"></div>
+<div class="proxy"><div class="eyebrow"><span class="dot"></span>Relavoi proxy</div><div class="n">+234 201 342 0117</div></div>
+<div class="line" aria-hidden="true"></div>
+<div class="float party tilt-r"><div class="who"><div class="av g">H</div><div><div class="r">Customer</div><div class="n">+234 909 ••• 1192</div></div></div></div>
 </div>
 <div class="flow-note">Numbers shown are illustrative.</div>
+</div>
 </div></header>
 
-<div style="background:var(--paper);border-top:1px solid var(--ink-2);border-bottom:1px solid var(--ink-2)"><div class="wrap"><div class="logos"><span class="eyebrow">Built for</span><span>Ride-hailing</span><span>Delivery</span><span>Marketplaces</span><span>Logistics</span><span>Telemedicine</span></div></div></div>
+<div class="wrap"><div class="strip"><span class="eyebrow">Built for</span><span>Ride-hailing</span><span>Delivery</span><span>Marketplaces</span><span>Logistics</span><span>Telemedicine</span></div></div>
 
 <section><div class="wrap">
-<div class="sec-head"><div class="eyebrow">Why Relavoi</div><h2>Privacy isn't a feature. It's the product.</h2><p>Every call between your agents and customers routes through a temporary proxy number. When the job ends, the connection disappears.</p></div>
+<div class="sec-head"><div class="chip">Why Relavoi</div><h2>Privacy isn't a feature. It's the product.</h2><p>Every call between your agents and customers routes through a temporary proxy number. When the job ends, the connection disappears.</p></div>
 <div class="grid g3">
-<div class="card"><div class="ico">🛡</div><h3>Stop off-platform leakage</h3><p>Drivers and customers can't take the relationship, or the revenue, off your app once the session expires.</p></div>
-<div class="card"><div class="ico">⚡</div><h3>No app on the customer's side</h3><p>Calls run over Nigerian PSTN, so they reach any handset: smartphone or feature phone. No VoIP client, no data plan, nothing to install.</p></div>
-<div class="card"><div class="ico">§</div><h3>Built for NDPR</h3><p>Phone numbers AES-256-GCM encrypted at rest under per-tenant keys, never written to logs in plaintext, and a consent prompt the platform refuses to let you skip when recording is on.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Stop off-platform leakage</h3><p>Drivers and customers can't take the relationship, or the revenue, off your app once the session expires.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div><h3>No app on the customer's side</h3><p>Calls run over Nigerian PSTN, so they reach any handset: smartphone or feature phone. No VoIP client, no data plan, nothing to install.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h3>Built for NDPR</h3><p>Phone numbers AES-256-GCM encrypted at rest under per-tenant keys, never written to logs in plaintext, and a consent prompt the platform refuses to let you skip when recording is on.</p></div>
 </div>
 </div></section>
 
-<section class="dark"><div class="wrap">
-<div class="sec-head" style="margin-bottom:40px"><div class="eyebrow">Targets &amp; defaults</div></div>
-<div class="grid g4">
-<div class="stat"><h3 class="mono">&lt;500<span style="font-size:28px">ms</span></h3><p>call-routing budget, p99</p></div>
-<div class="stat"><h3 class="mono">15<span style="font-size:28px">min</span></h3><p>default grace period, per tenant</p></div>
-<div class="stat"><h3 class="mono">120<span style="font-size:28px">min</span></h3><p>default session cap</p></div>
-<div class="stat"><h3 class="mono">AES-256</h3><p>GCM at rest, per-tenant keys</p></div>
+<section class="pt0"><div class="wrap"><div class="panel-dark">
+<div class="chip">Targets &amp; defaults</div>
+<div class="stats">
+<div class="stat"><h3>&lt;500<span>ms</span></h3><p>call-routing budget, p99</p></div>
+<div class="stat"><h3>15<span>min</span></h3><p>default grace period, per tenant</p></div>
+<div class="stat"><h3>120<span>min</span></h3><p>default session cap</p></div>
+<div class="stat"><h3>AES-256</h3><p>GCM at rest, per-tenant keys</p></div>
 </div>
 <p class="statnote">These are engineering targets and platform defaults, not measured production averages. Grace period and session cap are configurable per tenant.</p>
+</div></div></section>
+
+<section class="pt0"><div class="wrap">
+<div class="sec-head"><div class="chip">Industries</div><h2>Wherever strangers need to talk.</h2></div>
+<div data-tabs="Industries"><div class="tab-panels">
+<article class="tab-panel">
+<div class="stage dark" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">D</div><div><div class="r">Driver</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">R</div><div><div class="r">Rider</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
+<div class="tab-copy"><h3>Ride-hailing</h3><p>Driver ↔ rider pickup coordination without handing out personal numbers.</p><span class="badge">session: trip_id · ttl 2h</span></div>
+</article>
+<article class="tab-panel">
+<div class="stage dark" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">C</div><div><div class="r">Courier</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">C</div><div><div class="r">Customer</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
+<div class="tab-copy"><h3>Food &amp; grocery delivery</h3><p>Couriers reach customers at the gate. Grace period covers the "I left it with security" call.</p><span class="badge">session: order_id · grace 15m</span></div>
+</article>
+<article class="tab-panel">
+<div class="stage dark" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">B</div><div><div class="r">Buyer</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">S</div><div><div class="r">Seller</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
+<div class="tab-copy"><h3>Marketplaces</h3><p>Buyers and sellers negotiate by phone while you keep the transaction on-platform.</p><span class="badge">session: listing_id · ttl 24h</span></div>
+</article>
+<article class="tab-panel">
+<div class="stage dark" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">D</div><div><div class="r">Driver</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">R</div><div><div class="r">Recipient</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
+<div class="tab-copy"><h3>Logistics</h3><p>Dispatcher-to-driver and driver-to-recipient run as separate masked sessions across the same waybill.</p><span class="badge">session: waybill · two-party</span></div>
+</article>
+<article class="tab-panel">
+<div class="stage dark" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">P</div><div><div class="r">Patient</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">P</div><div><div class="r">Provider</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
+<div class="tab-copy"><h3>Telemedicine</h3><p>Patients reach providers without clinicians exposing personal lines. Recording only ever starts after the consent prompt plays.</p><span class="badge">session: consult_id · consent prompt</span></div>
+</article>
+<article class="tab-panel">
+<div class="stage dark" aria-hidden="true"><span class="stage-tag">Illustrative</span><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">A</div><div><div class="r">Artisan</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">C</div><div><div class="r">Customer</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
+<div class="tab-copy"><h3>Service marketplaces</h3><p>Artisans and customers schedule jobs by phone; you stay the system of record.</p><span class="badge">session: job_id · ttl 24h</span></div>
+</article>
+</div></div>
 </div></section>
 
-<section><div class="wrap">
-<div class="sec-head"><div class="eyebrow">Industries</div><h2>Wherever strangers need to talk.</h2></div>
-<div class="grid g3">
-<div class="card vert"><div><h3 style="margin-top:0">Ride-hailing</h3><p>Driver ↔ rider pickup coordination without handing out personal numbers.</p></div><div class="ex">session: trip_id · ttl 2h</div></div>
-<div class="card vert"><div><h3 style="margin-top:0">Food &amp; grocery delivery</h3><p>Couriers reach customers at the gate. Grace period covers the "I left it with security" call.</p></div><div class="ex">session: order_id · grace 15m</div></div>
-<div class="card vert"><div><h3 style="margin-top:0">Marketplaces</h3><p>Buyers and sellers negotiate by phone while you keep the transaction on-platform.</p></div><div class="ex">session: listing_id · ttl 24h</div></div>
-<div class="card vert"><div><h3 style="margin-top:0">Logistics</h3><p>Dispatcher-to-driver and driver-to-recipient run as separate masked sessions across the same waybill.</p></div><div class="ex">session: waybill · two-party</div></div>
-<div class="card vert"><div><h3 style="margin-top:0">Telemedicine</h3><p>Patients reach providers without clinicians exposing personal lines. Recording only ever starts after the consent prompt plays.</p></div><div class="ex">session: consult_id · consent prompt</div></div>
-<div class="card vert"><div><h3 style="margin-top:0">Service marketplaces</h3><p>Artisans and customers schedule jobs by phone; you stay the system of record.</p></div><div class="ex">session: job_id · ttl 24h</div></div>
-</div>
-</div></section>
-
-<section style="padding-top:0"><div class="wrap">
-<div class="grid g2" style="align-items:center;gap:56px">
-<div><div class="eyebrow">For developers</div><h2 style="font-size:44px;line-height:1.05;margin-top:16px">One POST to your first masked call.</h2><p style="font-size:18px;color:var(--ink-5);margin-top:18px">REST API, HMAC-signed carrier webhooks, and SDKs for iOS, Android and Flutter. Build against the sandbox before you touch a live number.</p><div style="display:flex;gap:12px;margin-top:32px"><a href="developers.html" class="btn btn-p">Explore the docs</a><a href="how-it-works.html" class="btn btn-s">How it works</a></div></div>
-<div class="code"><span class="c"># 1 · exchange your API key for a short-lived JWT</span>
+<section class="pt0"><div class="wrap"><div class="split">
+<div><div class="chip">For developers</div><h2 class="h2" style="margin-top:18px">One POST to your first masked call.</h2><p class="lede">REST API, HMAC-signed carrier webhooks, and SDKs for iOS, Android and Flutter. Build against the sandbox before you touch a live number.</p><div class="btn-row"><a href="developers.html" class="btn btn-p">Explore the docs<span class="arr" aria-hidden="true"></span></a><a href="how-it-works.html" class="btn btn-s">How it works</a></div></div>
+<div class="window"><div class="window-bar" aria-hidden="true"><i></i><i></i><i></i></div><div class="code"><span class="c"># 1 · exchange your API key for a short-lived JWT</span>
 <span class="k">curl</span> -X POST https://api.relavoi.com/v1/auth/token \
   -H <span class="s">"Content-Type: application/json"</span> \
   -d <span class="s">'{"apiKey":"rk_live_…","apiSecret":"rs_…"}'</span>
@@ -97,10 +141,9 @@
 <span class="c"># → { "id": "67701c43-…", "state": "ACTIVE",</span>
 <span class="c">#     "proxyNumber": "+234…",</span>
 <span class="c">#     "gracePeriodMinutes": 15,</span>
-<span class="c">#     "maxDurationMinutes": 120 }</span></div>
-</div>
-</div></section>
+<span class="c">#     "maxDurationMinutes": 120 }</span></div></div>
+</div></div></section>
 
-<section style="padding-top:0"><div class="wrap"><div class="cta-band"><div><h2>Ready to stop leaking phone numbers?</h2><p>We're onboarding pilot partners now. Tell us your call volume and we'll size and provision a number pool against your integration.</p></div><div style="display:flex;gap:12px"><a href="https://app.relavoi.com/signup" class="btn btn-g">Request pilot access</a><a href="products.html" class="btn btn-s" style="border-color:var(--ink-6);color:#fff">See the platform</a></div></div></div></section>
+<section class="pt0"><div class="wrap"><div class="panel-dark cta-band"><div><h2>Ready to stop leaking phone numbers?</h2><p>We're onboarding pilot partners now. Tell us your call volume and we'll size and provision a number pool against your integration.</p></div><div class="btn-row"><a href="https://app.relavoi.com/signup" class="btn btn-g">Request pilot access<span class="arr" aria-hidden="true"></span></a><a href="products.html" class="btn btn-s">See the platform</a></div></div></div></section>
 <script src="site.js"></script>
 </body></html>

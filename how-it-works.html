@@ -2,41 +2,67 @@
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How it works · Relavoi</title>
 <link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="What happens between your API call and two ringing phones: session creation, atomic proxy allocation, call routing, event streaming and expiry.">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
 <style>
-.steps{display:grid;gap:0;border-top:1px solid var(--ink-2)}
-.step{display:grid;grid-template-columns:120px 1fr 1fr;gap:48px;padding:56px 0;border-bottom:1px solid var(--ink-2);align-items:start}
-.step .num{font:500 56px/1 'IBM Plex Mono';color:var(--ink-4);letter-spacing:-.04em}
-.step h3{font-size:30px;line-height:1.1}
-.step p{color:var(--ink-5);font-size:16px;margin-top:14px}
-@media(max-width:900px){.step{grid-template-columns:1fr;gap:20px}}
-.states{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font:500 13px 'IBM Plex Mono'}
-.states span.s{padding:10px 16px;border-radius:8px;border:1px solid var(--ink-7);background:var(--ink-8);color:#fff}
-.states span.a{color:var(--ink-5)}
+.steps{position:relative;display:grid;gap:16px}
+.steps::before{content:"";position:absolute;left:calc(clamp(22px,3.5vw,40px) + 26px);top:48px;bottom:48px;width:2px;background:repeating-linear-gradient(180deg,var(--line-2) 0 6px,transparent 6px 12px)}
+.step{position:relative;display:grid;grid-template-columns:52px minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start;padding:clamp(22px,3.5vw,40px)}
+.step .num{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font:500 15px/1 var(--mono);color:var(--sig-6);background:var(--sig-1);border:1px solid var(--sig-2)}
+.step h3{font-size:clamp(22px,2.4vw,28px);line-height:1.15;margin:0}
+.step p{color:var(--ink-5);font-size:16px;margin-top:12px}
+.step-vis{min-width:0}
+.step-vis .code{font-size:12px}
+.inset{background:var(--bone-5);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.inset .big{font:500 clamp(19px,2.2vw,24px)/1.3 var(--mono);margin-top:10px}
+.inset p.mono{font-size:12px;margin-top:8px;color:var(--ink-5)}
+.hops{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font:500 13px/1 var(--mono);color:var(--ink-3)}
+.hop{padding:12px 16px;border-radius:999px;background:var(--paper);border:1px solid var(--line-2);color:var(--ink)}
+.hop.r{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:0 0 0 5px rgba(91,201,122,.18)}
+.states{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font:500 13px/1 var(--mono)}
+.states span.s{padding:11px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#fff}
+.states span.s.ok{border-color:var(--sig);color:var(--sig)}
+.states span.s.gr{border-color:var(--amber);color:var(--amber)}
+.states span.s.f{border-color:var(--terra);color:var(--terra)}
+.states span.a{color:var(--ink-4)}
+.states span.or{margin-left:14px}
+.life-cards .card h3{margin-top:20px}
+@media(max-width:1024px){
+.step{grid-template-columns:52px minmax(0,1fr)}
+.step-vis{grid-column:2}
+}
+@media(max-width:640px){
+.steps::before{display:none}
+.step{grid-template-columns:minmax(0,1fr);gap:18px}
+.step-vis{grid-column:auto}
+.step .num{width:44px;height:44px}
+.states span.or{margin-left:0}
+}
 </style></head>
 <body data-page="how">
-<header class="phero"><div class="wrap"><div class="eyebrow">How it works</div><h1>From one API call to two ringing phones.</h1><p>Relavoi sits between your app and the carrier network. Here's what happens when your courier taps "Call customer".</p></div></header>
-<section style="padding-top:48px"><div class="wrap"><div class="steps">
-<div class="step"><div class="num">01</div><div><h3>You create a session</h3><p>Your backend calls <span class="mono">POST /v1/sessions</span> with both parties' numbers and any metadata: order ID, zone, anything.</p></div><div class="code" style="font-size:12px">{ <span class="s">"agentPhone"</span>: <span class="s">"+2348031234421"</span>,
+<header class="phero"><div class="wrap"><div class="chip">How it works</div><h1>From one API call to two ringing phones.</h1><p>Relavoi sits between your app and the carrier network. Here's what happens when your courier taps "Call customer".</p></div></header>
+<section style="padding-top:clamp(32px,5vw,56px)"><div class="wrap"><div class="steps">
+<div class="card step"><div class="num">01</div><div><h3>You create a session</h3><p>Your backend calls <span class="mono">POST /v1/sessions</span> with both parties' numbers and any metadata: order ID, zone, anything.</p></div><div class="step-vis"><div class="code">{ <span class="s">"agentPhone"</span>: <span class="s">"+2348031234421"</span>,
   <span class="s">"customerPhone"</span>: <span class="s">"+2349091231192"</span>,
   <span class="s">"gracePeriodMinutes"</span>: 15,
-  <span class="s">"metadata"</span>: { <span class="s">"orderId"</span>: <span class="s">"ORD-9281"</span> } }</div></div>
-<div class="step"><div class="num">02</div><div><h3>We allocate a proxy number</h3><p>An atomic Redis allocator takes a number from the pool for the requested region, guaranteeing no participant overlap with any other live session on that number.</p></div><div class="card"><div class="eyebrow">Allocated</div><div class="mono" style="font-size:24px;margin-top:10px">+234 201 342 0117</div><p class="mono" style="font-size:12px;margin-top:8px">region lagos · allocated atomically</p></div></div>
-<div class="step"><div class="num">03</div><div><h3>Either party dials the proxy</h3><p>No app required. The call reaches the carrier network, arrives at Relavoi, and our router identifies the caller and bridges to the other side, against a sub-500ms p99 budget.</p></div><div class="ph" style="height:180px">Diagram · caller → carrier → Relavoi → callee</div></div>
-<div class="step"><div class="num">04</div><div><h3>Your app hears everything</h3><p>HMAC-signed webhooks and WebSocket events stream every state change: incoming, answered, ended, failed. The SDKs turn these into branded push alerts and in-call verification UI.</p></div><div class="code" style="font-size:12px"><span class="s">call.incoming</span>   14:21:28
+  <span class="s">"metadata"</span>: { <span class="s">"orderId"</span>: <span class="s">"ORD-9281"</span> } }</div></div></div>
+<div class="card step"><div class="num">02</div><div><h3>We allocate a proxy number</h3><p>An atomic Redis allocator takes a number from the pool for the requested region, guaranteeing no participant overlap with any other live session on that number.</p></div><div class="step-vis"><div class="inset"><div class="eyebrow">Allocated</div><div class="big">+234 201 342 0117</div><p class="mono">region lagos · allocated atomically</p></div></div></div>
+<div class="card step"><div class="num">03</div><div><h3>Either party dials the proxy</h3><p>No app required. The call reaches the carrier network, arrives at Relavoi, and our router identifies the caller and bridges to the other side, against a sub-500ms p99 budget.</p></div><div class="step-vis"><div class="inset"><div class="hops"><span class="hop">caller</span><span>→</span><span class="hop">carrier</span><span>→</span><span class="hop r">Relavoi</span><span>→</span><span class="hop">callee</span></div></div></div></div>
+<div class="card step"><div class="num">04</div><div><h3>Your app hears everything</h3><p>HMAC-signed webhooks and WebSocket events stream every state change: incoming, answered, ended, failed. The SDKs turn these into branded push alerts and in-call verification UI.</p></div><div class="step-vis"><div class="code"><span class="s">call.incoming</span>   14:21:28
 <span class="s">call.answered</span>   14:21:32
-<span class="s">call.ended</span>      14:23:04  92s</div></div>
-<div class="step"><div class="num">05</div><div><h3>The session expires</h3><p>When the job is done, a grace period covers follow-up calls, then the number returns to the pool after a cooldown. Dial it tomorrow and you reach nobody.</p></div><div class="card"><div class="eyebrow">After expiry</div><p style="margin-top:10px;color:var(--ink)">"This number is no longer active. Please contact [your brand] support."</p><p class="mono" style="font-size:12px;margin-top:10px;color:var(--ink-5)">dead line · redirect · custom message</p></div></div>
+<span class="s">call.ended</span>      14:23:04  92s</div></div></div>
+<div class="card step"><div class="num">05</div><div><h3>The session expires</h3><p>When the job is done, a grace period covers follow-up calls, then the number returns to the pool after a cooldown. Dial it tomorrow and you reach nobody.</p></div><div class="step-vis"><div class="inset"><div class="eyebrow">After expiry</div><p style="margin-top:10px;color:var(--ink)">"This number is no longer active. Please contact [your brand] support."</p><p class="mono">dead line · redirect · custom message</p></div></div></div>
 </div></div></section>
-<section class="dark"><div class="wrap">
-<div class="sec-head"><div class="eyebrow">Session lifecycle</div><h2>Five states. No ambiguity.</h2></div>
-<div class="states"><span class="s">PENDING</span><span class="a">→</span><span class="s" style="border-color:var(--sig);color:var(--sig)">ACTIVE</span><span class="a">→</span><span class="s" style="border-color:var(--amber);color:var(--amber)">GRACE_PERIOD</span><span class="a">→</span><span class="s">EXPIRED</span><span class="a" style="margin-left:24px">or</span><span class="s" style="border-color:var(--terra);color:var(--terra)">FAILED</span></div>
-<div class="grid g3" style="margin-top:56px">
-<div class="card"><h3 style="margin-top:0">Atomic allocation</h3><p>Allocation and overlap checks run as one Redis Lua script. Two sessions can never race onto the same proxy for the same participant.</p></div>
-<div class="card"><h3 style="margin-top:0">Provider health monitoring</h3><p>A circuit breaker tracks the carrier gateway's error rate and trips on sustained failure. Secondary-provider pools are on the roadmap, not yet provisioned.</p></div>
-<div class="card"><h3 style="margin-top:0">Idempotent webhooks</h3><p>Duplicate carrier events never create duplicate call legs. The routing decision is cached by event ID and replayed verbatim. Failed events land in a monitored dead-letter queue.</p></div>
+<section class="pt0"><div class="wrap">
+<div class="panel-dark">
+<div class="sec-head left"><div class="chip">Session lifecycle</div><h2>Five states. No ambiguity.</h2></div>
+<div class="states"><span class="s">PENDING</span><span class="a">→</span><span class="s ok">ACTIVE</span><span class="a">→</span><span class="s gr">GRACE_PERIOD</span><span class="a">→</span><span class="s">EXPIRED</span><span class="a or">or</span><span class="s f">FAILED</span></div>
+</div>
+<div class="grid g3 life-cards" style="margin-top:20px">
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div><h3>Atomic allocation</h3><p>Allocation and overlap checks run as one Redis Lua script. Two sessions can never race onto the same proxy for the same participant.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div><h3>Provider health monitoring</h3><p>A circuit breaker tracks the carrier gateway's error rate and trips on sustained failure. Secondary-provider pools are on the roadmap, not yet provisioned.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 013-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 01-3 3H3"/></svg></div><h3>Idempotent webhooks</h3><p>Duplicate carrier events never create duplicate call legs. The routing decision is cached by event ID and replayed verbatim. Failed events land in a monitored dead-letter queue.</p></div>
 </div>
 </div></section>
-<section><div class="wrap"><div class="cta-band"><div><h2>See it with your own numbers.</h2><p>Pilot partners get a provisioned number pool and can build against the sandbox first.</p></div><a href="developers.html" class="btn btn-g">Open the docs</a></div></div></section>
+<section class="pt0"><div class="wrap"><div class="panel-dark cta-band"><div><h2>See it with your own numbers.</h2><p>Pilot partners get a provisioned number pool and can build against the sandbox first.</p></div><div class="btn-row"><a href="developers.html" class="btn btn-g">Open the docs<span class="arr" aria-hidden="true"></span></a></div></div></div></section>
 <script src="site.js"></script>
 </body></html>

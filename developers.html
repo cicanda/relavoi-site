@@ -2,44 +2,56 @@
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Developers · Relavoi</title>
 <link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Relavoi for developers: REST API, HMAC-signed webhooks, WebSocket events, and SDKs for iOS, Android and Flutter.">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
 <style>
+a.card.link{position:relative;padding-right:64px}
+a.card.link::after{content:"↗";position:absolute;top:22px;right:22px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--bone);color:var(--ink);font-size:15px;transition:background .2s,color .2s}
+a.card.link:hover::after{background:var(--ink);color:#fff}
+a.card.link .eyebrow{color:var(--sig-6)}
 .dl{display:flex;justify-content:space-between;align-items:center;gap:16px}
-.dl .mono{font-size:13px;color:var(--ink-5)}
-.card.link:hover{border-color:var(--ink)}
-.ev{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--ink-7);font-size:14px}
-.ev .mono{color:var(--sig)}
-@media(max-width:600px){.ev{grid-template-columns:1fr;gap:4px}}
+.dl .mono{font-size:13px;color:var(--ink-5);margin-top:6px}
+.dl h3{margin:0}
+.dl .btn{flex:0 0 auto}
+.events{margin-top:28px;padding:6px 22px}
+.ev{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-6)}
+.ev:last-child{border-bottom:0}
+.ev .mono{color:var(--sig-6);font-weight:500}
+.hook p .mono{font-size:.92em;background:var(--ink-1);padding:1px 6px;border-radius:6px;color:var(--ink)}
+.hook .split{align-items:start}
+@media(max-width:640px){
+.ev{grid-template-columns:minmax(0,1fr);gap:4px}
+.dl{flex-wrap:wrap}
+}
 </style></head>
 <body data-page="dev">
-<header class="phero"><div class="wrap"><div class="eyebrow">Developers</div><h1>Built by engineers who've been paged at 2am.</h1><p>Predictable REST, HMAC-signed webhooks, and SDKs for iOS, Android and Flutter. Build against the sandbox before you touch a live number.</p><div style="display:flex;gap:12px;margin-top:36px;flex-wrap:wrap"><a href="https://docs.relavoi.com/api-reference/sessions" target="_blank" rel="noopener" class="btn btn-p">Open API reference ↗</a><a href="https://app.relavoi.com/signup" class="btn btn-s">Request pilot access</a></div></div></header>
-<section><div class="wrap">
+<header class="phero"><div class="wrap"><div class="chip">Developers</div><h1>Built by engineers who've been paged at 2am.</h1><p>Predictable REST, HMAC-signed webhooks, and SDKs for iOS, Android and Flutter. Build against the sandbox before you touch a live number.</p><div class="btn-row"><a href="https://docs.relavoi.com/api-reference/sessions" target="_blank" rel="noopener" class="btn btn-p">Open API reference <span class="arr">↗</span></a><a href="https://app.relavoi.com/signup" class="btn btn-s">Request pilot access</a></div></div></header>
+<section style="padding-top:clamp(32px,5vw,56px)"><div class="wrap">
 <div class="grid g3">
 <a class="card link" href="https://docs.relavoi.com/getting-started/first-session" target="_blank" rel="noopener"><div class="eyebrow">Start</div><h3>Your first session</h3><p>Authenticate, create a session, and place your first masked call.</p></a>
 <a class="card link" href="https://docs.relavoi.com/api-reference/sessions" target="_blank" rel="noopener"><div class="eyebrow">Reference</div><h3>REST API</h3><p>Sessions, calls, SMS, numbers, analytics and config endpoints.</p></a>
 <a class="card link" href="https://docs.relavoi.com/getting-started/concepts" target="_blank" rel="noopener"><div class="eyebrow">Concepts</div><h3>How sessions work</h3><p>Grace periods, session states, recording consent and expired-call handling.</p></a>
 </div>
 </div></section>
-<section style="padding-top:0" id="sdks"><div class="wrap">
-<div class="sec-head"><div class="eyebrow">SDKs</div><h2>Native where it matters.</h2><p>Each SDK handles auth and token refresh, session calls, call verification, push registration and the event stream. Check the docs for the current release version.</p></div>
+<section class="pt0" id="sdks"><div class="wrap">
+<div class="sec-head"><div class="chip">SDKs</div><h2>Native where it matters.</h2><p>Each SDK handles auth and token refresh, session calls, call verification, push registration and the event stream. Check the docs for the current release version.</p></div>
 <div class="grid g3">
-<div class="card dl"><div><h3 style="margin:0">iOS · Swift</h3><div class="mono" style="margin-top:6px">RelavoiSDK · SPM</div></div><a class="btn btn-s" href="https://docs.relavoi.com/sdks/ios/installation" target="_blank" rel="noopener">Docs</a></div>
-<div class="card dl"><div><h3 style="margin:0">Android · Kotlin</h3><div class="mono" style="margin-top:6px">com.relavoi.sdk</div></div><a class="btn btn-s" href="https://docs.relavoi.com/sdks/android/installation" target="_blank" rel="noopener">Docs</a></div>
-<div class="card dl"><div><h3 style="margin:0">Flutter · Dart</h3><div class="mono" style="margin-top:6px">relavoi_sdk</div></div><a class="btn btn-s" href="https://docs.relavoi.com/sdks/flutter/installation" target="_blank" rel="noopener">Docs</a></div>
+<div class="card dl"><div><h3>iOS · Swift</h3><div class="mono">RelavoiSDK · SPM</div></div><a class="btn btn-s btn-sm" href="https://docs.relavoi.com/sdks/ios/installation" target="_blank" rel="noopener">Docs</a></div>
+<div class="card dl"><div><h3>Android · Kotlin</h3><div class="mono">com.relavoi.sdk</div></div><a class="btn btn-s btn-sm" href="https://docs.relavoi.com/sdks/android/installation" target="_blank" rel="noopener">Docs</a></div>
+<div class="card dl"><div><h3>Flutter · Dart</h3><div class="mono">relavoi_sdk</div></div><a class="btn btn-s btn-sm" href="https://docs.relavoi.com/sdks/flutter/installation" target="_blank" rel="noopener">Docs</a></div>
 </div>
 </div></section>
-<section class="dark" id="webhooks"><div class="wrap">
-<div class="grid g2" style="gap:64px">
-<div><div class="eyebrow">Webhooks</div><h2 style="font-size:44px;line-height:1.05;margin-top:16px">Every event, HMAC-signed.</h2><p style="font-size:17px;margin-top:18px">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p>
-<div style="margin-top:32px">
+<section class="pt0 hook" id="webhooks"><div class="wrap">
+<div class="split">
+<div><div class="chip">Webhooks</div><h2 class="h2" style="margin-top:18px">Every event, HMAC-signed.</h2><p class="lede">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p>
+<div class="card events">
 <div class="ev"><span class="mono">session.created</span><span>Proxy allocated, session live</span></div>
 <div class="ev"><span class="mono">call.incoming</span><span>A party dialed the proxy</span></div>
 <div class="ev"><span class="mono">call.answered</span><span>Bridge established</span></div>
 <div class="ev"><span class="mono">call.ended</span><span>Duration and status</span></div>
 <div class="ev"><span class="mono">sms.sent</span><span>Masked SMS delivered</span></div>
-<div class="ev" style="border:0"><span class="mono">session.expired</span><span>Number returned to pool</span></div>
+<div class="ev"><span class="mono">session.expired</span><span>Number returned to pool</span></div>
 </div></div>
-<div class="code">POST /your/webhook
+<div class="window"><div class="window-bar" aria-hidden="true"><i></i><i></i><i></i></div><div class="code">POST /your/webhook
 X-Relavoi-Event: call.answered
 X-Relavoi-Delivery: 3b91c02a-…
 X-Relavoi-Timestamp: 1774703292
@@ -52,7 +64,7 @@ X-Relavoi-Signature: sha256=9f2a…
     <span class="s">"sessionId"</span>: <span class="s">"67701c43-…"</span>,
     <span class="s">"direction"</span>: <span class="s">"B_TO_A"</span>
   }
-}</div>
+}</div></div>
 </div>
 </div></section>
 <script src="site.js"></script>

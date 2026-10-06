@@ -2,40 +2,52 @@
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>About · Relavoi</title>
 <link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="description" content="Why Relavoi exists: no dedicated number-masking provider was built for Nigerian carriers, naira billing or NDPR, so we built one.">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
 <style>
-.story{display:grid;grid-template-columns:1fr 1.4fr;gap:80px}
-.story p{font-size:19px;color:var(--ink-6);margin-bottom:22px;line-height:1.6}
-@media(max-width:900px){.story{grid-template-columns:1fr;gap:32px}}
-.val h3{margin-top:0}
-.road{display:grid;gap:0;border-top:1px solid var(--ink-7)}
-.road div{display:grid;grid-template-columns:120px 1fr;gap:32px;padding:22px 0;border-bottom:1px solid var(--ink-7);align-items:baseline}
-.road .ph-n{font:500 12px/1 'IBM Plex Mono';letter-spacing:.1em;text-transform:uppercase;color:var(--sig)}
-.road p{margin:0;font-size:15px}
-@media(max-width:600px){.road div{grid-template-columns:1fr;gap:6px}}
+.story{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(32px,6vw,80px);align-items:start}
+.story h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;margin-top:18px}
+.story-body{padding:clamp(24px,4vw,44px)}
+.story-body p{font-size:clamp(16px,1.7vw,19px);color:var(--ink-6);line-height:1.65}
+.story-body p+p{margin-top:20px}
+.vals{counter-reset:v}
+.val{counter-increment:v}
+.val::before{content:counter(v,decimal-leading-zero);font:500 13px/1 var(--mono);color:var(--sig)}
+.val h3{margin-top:18px}
+.road{display:grid;gap:12px}
+.road .card{display:grid;grid-template-columns:180px minmax(0,1fr);gap:32px;align-items:baseline}
+.road p{color:var(--ink-6);font-size:15px}
+.status{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:6px 12px;border-radius:999px;font:500 12px/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;justify-self:start}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.status.live{background:var(--sig-1);color:var(--sig-6)}
+.status.prog{background:var(--amber-1);color:var(--amber-6)}
+.status.prog::before{background:var(--amber)}
+.status.next{background:var(--ink-1);color:var(--ink-6)}
+.status.next::before{background:var(--ink-4)}
+@media(max-width:1024px){.story{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:640px){.road .card{grid-template-columns:minmax(0,1fr);gap:12px}}
 </style></head>
 <body data-page="about">
-<header class="phero"><div class="wrap"><div class="eyebrow">About Relavoi</div><h1>Nigeria's platforms deserve privacy infrastructure built here.</h1></div></header>
-<section><div class="wrap"><div class="story">
-<div><div class="eyebrow">Our story</div><h2 style="font-size:36px;line-height:1.1;margin-top:16px">No local provider existed. So we built one.</h2></div>
-<div><p>Every day across Lagos, couriers, drivers and sellers exchange personal phone numbers with strangers. Numbers get saved, reused, and sometimes abused, and platforms lose customers to off-app deals.</p><p>Nigeria has no dedicated number-masking provider. The global ones weren't built for Nigerian carriers, naira billing, or NDPR. Relavoi is. We run over local PSTN so any handset works, allocate numbers by region, and meter usage in naira.</p><p>Relavoi is built by <a href="https://cicanda.com" target="_blank" rel="noopener">CICANDA Ltd</a>, headquartered in Lagos.</p></div>
+<header class="phero"><div class="wrap"><div class="chip">About Relavoi</div><h1>Nigeria's platforms deserve privacy infrastructure built here.</h1></div></header>
+<section style="padding-top:clamp(32px,5vw,56px)"><div class="wrap"><div class="story">
+<div><div class="chip">Our story</div><h2>No local provider existed. So we built one.</h2></div>
+<div class="card story-body"><p>Every day across Lagos, couriers, drivers and sellers exchange personal phone numbers with strangers. Numbers get saved, reused, and sometimes abused, and platforms lose customers to off-app deals.</p><p>Nigeria has no dedicated number-masking provider. The global ones weren't built for Nigerian carriers, naira billing, or NDPR. Relavoi is. We run over local PSTN so any handset works, allocate numbers by region, and meter usage in naira.</p><p>Relavoi is built by <a href="https://cicanda.com" target="_blank" rel="noopener">CICANDA Ltd</a>, headquartered in Lagos.</p></div>
 </div></div></section>
-<section class="dark"><div class="wrap">
-<div class="sec-head"><div class="eyebrow">What we believe</div><h2>Principles we ship by.</h2></div>
-<div class="grid g3">
+<section class="pt0"><div class="wrap"><div class="panel-dark">
+<div class="sec-head"><div class="chip">What we believe</div><h2>Principles we ship by.</h2></div>
+<div class="grid g3 vals">
 <div class="card val"><h3>Privacy is the default</h3><p>Real numbers are encrypted at rest under per-tenant keys and never returned by the API, not even to you. Lookups run on salted hashes, and plaintext numbers never reach a log line.</p></div>
 <div class="card val"><h3>Reliability beats features</h3><p>A missed call is a missed delivery. We'd rather ship less and page less.</p></div>
 <div class="card val"><h3>Local first</h3><p>Nigerian carriers, Nigerian compliance, naira pricing. Then the rest of the continent.</p></div>
 </div>
-</div></section>
+</div></div></section>
 <section><div class="wrap">
-<div class="sec-head"><div class="eyebrow">Where we are</div><h2>Early, and honest about it.</h2><p>Relavoi is in private beta. Here's what's live, what's next, and what's still on paper.</p></div>
-<div class="road" style="border-color:var(--ink-2)">
-<div style="border-color:var(--ink-2)"><span class="ph-n" style="color:var(--sig-6)">Live</span><p>Voice and SMS masking, session lifecycle, atomic number allocation, signed webhooks, WebSocket events, usage metering, tenant dashboard and operator console.</p></div>
-<div style="border-color:var(--ink-2)"><span class="ph-n" style="color:var(--amber)">In progress</span><p>SDK hardening across iOS, Android and Flutter. Self-service onboarding. Automated number provisioning and pool auto-scaling.</p></div>
-<div style="border-color:var(--ink-2)"><span class="ph-n" style="color:var(--ink-4)">On the roadmap</span><p>Secondary-carrier failover pools, encrypted recording storage, WhatsApp masking, USSD fallback, and expansion beyond Nigeria.</p></div>
+<div class="sec-head"><div class="chip">Where we are</div><h2>Early, and honest about it.</h2><p>Relavoi is in private beta. Here's what's live, what's next, and what's still on paper.</p></div>
+<div class="road">
+<div class="card"><span class="status live">Live</span><p>Voice and SMS masking, session lifecycle, atomic number allocation, signed webhooks, WebSocket events, usage metering, tenant dashboard and operator console.</p></div>
+<div class="card"><span class="status prog">In progress</span><p>SDK hardening across iOS, Android and Flutter. Self-service onboarding. Automated number provisioning and pool auto-scaling.</p></div>
+<div class="card"><span class="status next">On the roadmap</span><p>Secondary-carrier failover pools, encrypted recording storage, WhatsApp masking, USSD fallback, and expansion beyond Nigeria.</p></div>
 </div>
 </div></section>
-<section style="padding-top:0"><div class="wrap"><div class="cta-band"><div><h2>Build the trust layer with us.</h2><p>We're taking on pilot partners in delivery, ride-hailing and logistics.</p></div><a href="contact.html" class="btn btn-g">Get in touch</a></div></div></section>
+<section class="pt0"><div class="wrap"><div class="panel-dark cta-band"><div><h2>Build the trust layer with us.</h2><p>We're taking on pilot partners in delivery, ride-hailing and logistics.</p></div><div class="btn-row"><a href="contact.html" class="btn btn-g">Get in touch<span class="arr" aria-hidden="true"></span></a></div></div></div></section>
 <script src="site.js"></script>
 </body></html>
