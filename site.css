@@ -136,10 +136,8 @@ a.card:hover{transform:translateY(-3px);box-shadow:var(--sh-2);border-color:var(
 .code .k{color:#7CC4F2}.code .s{color:#8EE0A6}.code .c{color:#8391A7}
 
 /* mockup stages */
-.stage{position:relative;overflow:hidden;isolation:isolate;border-radius:24px;min-height:380px;display:grid;place-items:center;padding:clamp(48px,6vw,64px) clamp(20px,4vw,48px);border:1px solid var(--line);background:radial-gradient(70% 60% at 25% 15%,rgba(255,255,255,.95),transparent 70%),linear-gradient(155deg,var(--sig-1) 0%,#EFEADF 55%,var(--bone-5) 100%)}
+.stage{position:relative;overflow:hidden;isolation:isolate;border-radius:24px;min-height:380px;display:grid;place-items:center;padding:clamp(28px,4vw,48px) clamp(20px,4vw,48px);border:1px solid var(--line);background:radial-gradient(70% 60% at 25% 15%,rgba(255,255,255,.95),transparent 70%),linear-gradient(155deg,var(--sig-1) 0%,#EFEADF 55%,var(--bone-5) 100%)}
 .stage.dark{border-color:var(--ink-7);background:radial-gradient(70% 80% at 85% 10%,rgba(91,201,122,.32),transparent 60%),radial-gradient(60% 60% at 0% 100%,rgba(91,201,122,.12),transparent 60%),var(--ink)}
-.stage-tag{position:absolute;top:16px;left:16px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-5);background:rgba(255,255,255,.75);border:1px solid var(--line);padding:7px 10px;border-radius:999px}
-.stage.dark .stage-tag{color:var(--ink-4);background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
 .ghosted{position:relative}
 .ghosted::before{content:"";position:absolute;inset:-12px;border:1.5px dashed rgba(11,18,32,.2);border-radius:26px;transform:rotate(4deg)}
 .stage.dark .ghosted::before{border-color:rgba(255,255,255,.22)}
