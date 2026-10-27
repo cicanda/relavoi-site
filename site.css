@@ -63,7 +63,8 @@ section{padding:var(--sec) 0}
 .nav{position:sticky;top:12px;z-index:60;margin-top:12px;padding:0 16px}
 .nav-bar{position:relative;max-width:1100px;margin:0 auto;height:64px;display:flex;align-items:center;gap:16px;padding:0 8px 0 18px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(1.4) blur(16px);backdrop-filter:saturate(1.4) blur(16px);border:1px solid var(--line);border-radius:999px;box-shadow:var(--sh-1)}
 .logo{display:inline-flex;align-items:center;gap:10px;font:600 18px/1 var(--sans);letter-spacing:-.03em;color:var(--ink);flex:0 0 auto}
-.logo .mark{width:30px;height:30px;border-radius:8px;display:block}
+.logo .wordmark{height:32px;width:auto;display:block}
+.foot .logo .wordmark{height:36px}
 .nav-links{display:flex;gap:2px;margin:0 auto}
 .nav-links a{padding:9px 14px;border-radius:999px;font-size:14px;font-weight:500;color:var(--ink-5);transition:background .2s,color .2s}
 .nav-links a:hover{color:var(--ink);background:rgba(11,18,32,.04)}
@@ -213,6 +214,7 @@ label.l{display:block;font-size:13px;font-weight:500;margin-bottom:8px;color:var
 .wrap{padding:0 16px}
 .nav{padding:0 12px}
 .nav-bar{height:58px;padding-left:14px}
+.nav .logo .wordmark{height:28px}
 .g3,.g4{grid-template-columns:minmax(0,1fr)}
 .btn-row .btn{flex:1 1 100%}
 .code{font-size:12px;padding:18px}
