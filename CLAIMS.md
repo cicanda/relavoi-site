@@ -19,7 +19,7 @@ Verified against the live platform and the backend source on 2026-09-28.
 | AES-256-GCM at rest, per-tenant keys | `src/utils/crypto.ts`; `sessions.party_*_phone_enc` | Lookups go via salted SHA-256 hashes. |
 | Numbers never logged in plaintext | `CLAUDE.md` § Code Style (hard rule) | |
 | Consent prompt can't be skipped when recording | `createSession()` rejects `recordingEnabled` + `consentPrompt: NONE` | NDPR requirement; enforced server-side. |
-| HMAC-signed CPaaS webhooks | `cpaasSignatureValid()` in `src/api/routes/webhooks.ts` | Mandatory outside sandbox. Was unenforced until `a5881bb`. |
+| Carrier callbacks authenticated by a secret callback address | `authorizeCallback()` in `src/api/routes/webhooks.ts`; `CPAAS_CALLBACK_TOKEN`, `CPAAS_CALLBACK_ENFORCE=true` | The gateway posts to a path carrying a secret token, compared in constant time. A signature path exists but whether the provider signs voice callbacks is unconfirmed, so **do not claim carrier webhooks are HMAC-signed**. Only the webhooks Relavoi sends to businesses are signed. |
 | iOS / Android / Flutter SDKs | `relavoi-{ios,android,flutter}-sdk` | Exist and build. Deliberately no maturity claim: the July audit found API contract drift. |
 | API shape in the code sample | Live `POST /v1/auth/token` + `POST /v1/sessions` | Key prefixes `rk_live_` / `rs_`, JWT bearer, JSON body, camelCase response. |
 | Two-party sessions | `direction_mode` ∈ BIDIRECTIONAL / A_TO_B_ONLY / B_TO_A_ONLY | Strictly two parties. No multi-party chain exists. |
@@ -48,6 +48,8 @@ Verified against the live platform and the backend source on 2026-09-28.
 | "Go live once your pool is provisioned, usually the same week" | `POST /numbers/provision` is a `501` stub; provisioning is manual. |
 | "NCC licensed" (footer) | **Relavoi is not NCC licensed.** The CPaaS provider holds the NCC approvals. Corrected to "Numbers via NCC-licensed carriers". |
 | "NDPR compliant" (footer) | Self-assessed, no audit. Softened to "NDPR-aligned". |
+| "NDPR-aligned" (footer) | Removed entirely on 2026-10-30. Even softened, it is a compliance claim we cannot back: the privacy policy is unpublished, the retention jobs are unbuilt and there is no NDPC registration. "Numbers via NCC-licensed carriers" stays, because the carrier gateway really does hold the approvals. |
+| Privacy / Terms / NDPR DPA footer links | They pointed at `contact.html`. A link labelled "Privacy" that opens a contact page is worse than no link. The Legal column is gone; the security guide moved to Developers. |
 | Live DID in the hero diagram | The pool's one real number is not published. Diagram numbers are illustrative and labelled as such. |
 | "region LOS-01 · carrier MTN · 38ms" | Region label is `lagos`, the provider is the CPaaS gateway (not a carrier), and the 38ms was invented. |
 | "Automatic failover to secondary CPaaS providers" | The circuit breaker is real, but **no Twilio numbers exist in any pool** and `TWILIO_ACCOUNT_SID` is empty. Nothing to fail over to. Reworded as health monitoring + roadmap. |

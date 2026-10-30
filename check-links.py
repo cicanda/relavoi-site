@@ -80,6 +80,11 @@ def main():
                     problems.append(f"{name}: dead placeholder href=\"#\"")
             else:
                 path, _, frag = link.partition("#")
+                # Strip the query string before looking on disk. Cache-busting
+                # suffixes like favicon.ico?v=2 are part of the URL, not of the
+                # filename, and treating them as one reported every icon on
+                # every page as missing while the files were plainly there.
+                path = path.partition("?")[0]
                 target = os.path.join(HERE, path) if path else src
                 if path and not os.path.exists(target):
                     problems.append(f"{name}: {path} does not exist")

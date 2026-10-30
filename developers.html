@@ -42,7 +42,7 @@ a.card.link .eyebrow{color:var(--sig-6)}
 </div></section>
 <section class="pt0 hook" id="webhooks"><div class="wrap">
 <div class="split">
-<div><div class="chip">Webhooks</div><h2 class="h2" style="margin-top:18px">Every event, HMAC-signed.</h2><p class="lede">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p>
+<div><div class="chip">Webhooks</div><h2 class="h2" style="margin-top:18px">Every event, HMAC-signed.</h2><p class="lede">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p><p style="font-size:15px;color:var(--ink-5);margin-top:14px">That signature is on the webhooks Relavoi sends you. Carrier callbacks travel the other way, into Relavoi, and are authenticated by a secret callback address the gateway holds. You never handle those.</p>
 <div class="card events">
 <div class="ev"><span class="mono">session.created</span><span>Proxy allocated, session live</span></div>
 <div class="ev"><span class="mono">call.incoming</span><span>A party dialed the proxy</span></div>
