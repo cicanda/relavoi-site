@@ -105,10 +105,26 @@ Verified against the live platform and the backend source on 2026-09-28, and aga
   still says the office is in Lagos. The claim removed is the vaguest of the
   three; the contact page is left alone because changing an address on a guess
   is worse than an inconsistency Kay can settle in one sentence.
-- **`relavoi.com` has no DNS record.** Only `api.relavoi.com` and
-  `docs.relavoi.com` resolve. `sales@relavoi.com` and `support@relavoi.com` on
-  the contact page will bounce until MX records exist, and the site itself has
-  nowhere to be hosted at the apex domain yet.
+- **Measured on 2026-11-01, correcting what this file used to say.** The
+  entry here claimed `relavoi.com` had no DNS record and that both contact
+  addresses would bounce for want of MX records. That was written before the
+  domain was set up and was repeated in a report without being re-checked.
+  What is actually true: the zone is delegated to Namecheap, carries Google
+  Workspace MX, SPF `include:_spf.google.com`, DMARC `p=none` reporting to
+  ops@, and `relavoi.com`, `api`, `staging-api`, `app`, `admin` and `docs` all
+  resolve and serve valid Let's Encrypt certificates.
+- **`sales@relavoi.com` does not exist.** Tested through SES on 2026-11-01 from
+  ops@: the message to `sales@` hard-bounced and the address is now on the SES
+  account suppression list; the message to `support@` was accepted. The contact
+  page lists both and its form composes a `mailto:` to `sales@`, so the form
+  currently goes nowhere. Kay is deciding whether to create the mailbox or
+  point the page at `support@`. If the mailbox is created, the suppression
+  entry has to be cleared first:
+  `aws sesv2 delete-suppressed-destination --email-address sales@relavoi.com`.
+- **`staging-api.relavoi.com` is an unused alias.** It resolves to the same
+  instance as `api.relavoi.com`, holds its own certificate, and nothing outside
+  `relavoi-infra` refers to it: no SDK, no console, no doc, no script.
+  Recommended for deletion.
 - **The contact form has no backend.** It composes a `mailto:` as an honest
   fallback. Wire it to a form endpoint (or the tenant API) before launch; the
   mailto loses anyone without a configured mail client.
