@@ -61,6 +61,30 @@ has no DNS record (so the `@relavoi.com` addresses on the contact page bounce),
 the contact form has no backend and falls back to `mailto:`, and the published
 pricing needs commercial sign-off.
 
+## Response headers
+
+`vercel.json` carries them, and JSON cannot hold a comment, so the reasoning is
+here. Finding H6 of the security audit of 1 November 2026.
+
+Enforced today: `frame-ancestors 'none'` plus `X-Frame-Options: DENY`, `nosniff`,
+`Referrer-Policy: strict-origin-when-cross-origin` and a `Permissions-Policy`
+that turns off the device APIs this site has no use for. None of those can break
+a page that works.
+
+The full Content-Security-Policy ships as `Content-Security-Policy-Report-Only`
+and posts violations to `https://api.relavoi.com/v1/csp-report`. The plan is a
+week of reports, then enforce. `style-src` allows `'unsafe-inline'` because
+every page has a `<style>` block and inline `style` attributes; `script-src`
+does not, so the one inline `<script>` in `contact.html` will report. That
+script has to move into `site.js` before the policy can be enforced, and the
+report is there to make sure nobody forgets. Google Fonts is named explicitly in
+`style-src` and `font-src`, because the stylesheet comes from
+`fonts.googleapis.com` and the font files from `fonts.gstatic.com`.
+
+Referrer-Policy here is deliberately milder than the consoles' `no-referrer`: a
+marketing page has nothing sensitive in its URL, and outbound links to
+cicanda.com and the docs should still carry an origin.
+
 ## Copy rules
 
 Read [`CLAIMS.md`](./CLAIMS.md) before editing any text. It records the source
