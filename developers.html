@@ -28,12 +28,12 @@ a.card.link .eyebrow{color:var(--sig-6)}
 <section style="padding-top:clamp(32px,5vw,56px)"><div class="wrap">
 <div class="grid g3">
 <a class="card link" href="https://docs.relavoi.com/getting-started/first-session" target="_blank" rel="noopener"><div class="eyebrow">Start</div><h3>Your first session</h3><p>Authenticate, create a session, and place your first masked call.</p></a>
-<a class="card link" href="https://docs.relavoi.com/api-reference/sessions" target="_blank" rel="noopener"><div class="eyebrow">Reference</div><h3>REST API</h3><p>Sessions, calls, SMS, numbers, analytics and config endpoints.</p></a>
-<a class="card link" href="https://docs.relavoi.com/getting-started/concepts" target="_blank" rel="noopener"><div class="eyebrow">Concepts</div><h3>How sessions work</h3><p>Grace periods, session states, recording consent and expired-call handling.</p></a>
+<a class="card link" href="https://docs.relavoi.com/api-reference/sessions" target="_blank" rel="noopener"><div class="eyebrow">Reference</div><h3>REST API</h3><p>Sessions, calls, numbers, analytics and config endpoints.</p></a>
+<a class="card link" href="https://docs.relavoi.com/getting-started/concepts" target="_blank" rel="noopener"><div class="eyebrow">Concepts</div><h3>How sessions work</h3><p>Grace periods, session states, and expired-call handling.</p></a>
 </div>
 </div></section>
 <section class="pt0" id="sdks"><div class="wrap">
-<div class="sec-head"><div class="chip">SDKs</div><h2>Native where it matters.</h2><p>Each SDK handles auth and token refresh, session calls, call verification, push registration and the event stream. Check the docs for the current release version.</p></div>
+<div class="sec-head"><div class="chip">SDKs</div><h2>Native where it matters.</h2><p>Each SDK handles auth and token refresh, session calls, call verification and the event stream. Check the docs for the current release version.</p></div>
 <div class="grid g3">
 <div class="card dl"><div><h3>iOS · Swift</h3><div class="mono">RelavoiSDK · SPM</div></div><a class="btn btn-s btn-sm" href="https://docs.relavoi.com/sdks/ios/installation" target="_blank" rel="noopener">Docs</a></div>
 <div class="card dl"><div><h3>Android · Kotlin</h3><div class="mono">com.relavoi.sdk</div></div><a class="btn btn-s btn-sm" href="https://docs.relavoi.com/sdks/android/installation" target="_blank" rel="noopener">Docs</a></div>
@@ -42,19 +42,18 @@ a.card.link .eyebrow{color:var(--sig-6)}
 </div></section>
 <section class="pt0 hook" id="webhooks"><div class="wrap">
 <div class="split">
-<div><div class="chip">Webhooks</div><h2 class="h2" style="margin-top:18px">Every event, HMAC-signed.</h2><p class="lede">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. We retry with exponential backoff and log every attempt to your dashboard.</p><p style="font-size:15px;color:var(--ink-5);margin-top:14px">That signature is on the webhooks Relavoi sends you. Carrier callbacks travel the other way, into Relavoi, and are authenticated by a secret callback address the gateway holds. You never handle those.</p>
+<div><div class="chip">Webhooks</div><h2 class="h2" style="margin-top:18px">Every event, HMAC-signed.</h2><p class="lede">Verify <span class="mono">X-Relavoi-Signature</span> against your webhook secret. It's an HMAC of <span class="mono">timestamp.body</span>. Dedupe on <span class="mono">X-Relavoi-Delivery</span> and respond 200. Reject anything whose <span class="mono">X-Relavoi-Timestamp</span> is more than five minutes from your own clock, so a leaked payload cannot be replayed at you later. We retry with exponential backoff and log every attempt to your dashboard.</p><p style="font-size:15px;color:var(--ink-5);margin-top:14px">That signature is on the webhooks Relavoi sends you. Carrier callbacks travel the other way, into Relavoi, and are authenticated by a secret callback address the gateway holds. You never handle those.</p>
 <div class="card events">
 <div class="ev"><span class="mono">session.created</span><span>Proxy allocated, session live</span></div>
 <div class="ev"><span class="mono">call.incoming</span><span>A party dialed the proxy</span></div>
 <div class="ev"><span class="mono">call.answered</span><span>Bridge established</span></div>
 <div class="ev"><span class="mono">call.ended</span><span>Duration and status</span></div>
-<div class="ev"><span class="mono">sms.sent</span><span>Masked SMS delivered</span></div>
 <div class="ev"><span class="mono">session.expired</span><span>Number returned to pool</span></div>
 </div></div>
 <div class="window"><div class="window-bar" aria-hidden="true"><i></i><i></i><i></i></div><div class="code">POST /your/webhook
 X-Relavoi-Event: call.answered
 X-Relavoi-Delivery: 3b91c02a-…
-X-Relavoi-Timestamp: 1774703292
+X-Relavoi-Timestamp: 1790691692
 X-Relavoi-Signature: sha256=9f2a…
 
 {

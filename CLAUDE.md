@@ -32,6 +32,30 @@ change only the address. Existing history is not rewritten.
 Never add a Claude attribution line, a co-author trailer or a generated-by
 note to a commit message or a pull request description.
 
+## Prices on this site come from the plans table
+
+`products.html` publishes the plan prices as static HTML. That is deliberate:
+a price fetched at render time is a price that can render empty, and an empty
+price on a pricing page is worse than a stale one.
+
+The cost of that choice is that there are now two copies, so **a change to the
+`plans` table and a change to `products.html` are one job, not two.** The
+database is the source of truth:
+
+```sql
+select tier, monthly_kobo/100 as monthly_ngn, included_minutes,
+       overage_kobo_per_minute/100.0 as overage_ngn
+from plans order by monthly_kobo;
+```
+
+Every number on the pricing section has to match that output, and the plan
+names have to match the `tier` values. `GET /v1/billing/wallet` serves the same
+rows to the dashboard, so a mismatch shows up as a tenant being quoted one
+price on the site and shown another once they sign in.
+
+The published numbers also appear in CLAIMS.md with the query that sourced
+them. Update that in the same commit.
+
 ## Genesis works through pull requests
 
 Genesis opens a PR; it is merged by Kay or by us. Three rules.

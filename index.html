@@ -56,7 +56,7 @@
 <div class="hero-copy">
 <span class="pill"><span class="dot"></span>Private beta · Lagos number pool</span>
 <h1>Connect your users. <em>Never expose</em> their numbers.</h1>
-<p class="lede">Relavoi is number-masking infrastructure for Nigerian ride-hailing, delivery, e-commerce and healthcare platforms. One API. Real phone calls on any handset. No personal numbers exchanged.</p>
+<p class="lede">Relavoi is number-masking infrastructure for Nigerian ride-hailing, delivery, e-commerce and healthcare platforms. One API. Real phone calls on any handset. No personal numbers exchanged. Nigerian mobile numbers only today.</p>
 <div class="btn-row"><a href="https://app.relavoi.com/signup" class="btn btn-p">Request pilot access <span class="arr">→</span></a><a href="developers.html" class="btn btn-s">Read the API docs</a></div>
 </div>
 <div class="hero-visual">
@@ -71,14 +71,14 @@
 </div>
 </div></header>
 
-<div class="wrap"><div class="strip"><span class="eyebrow">Built for</span><span>Ride-hailing</span><span>Delivery</span><span>Marketplaces</span><span>Logistics</span><span>Telemedicine</span></div></div>
+<div class="wrap"><div class="strip"><span class="eyebrow">Built for</span><span>Ride-hailing</span><span aria-hidden="true">&middot;</span><span>Delivery</span><span aria-hidden="true">&middot;</span><span>Marketplaces</span><span aria-hidden="true">&middot;</span><span>Logistics</span><span aria-hidden="true">&middot;</span><span>Telemedicine</span><span aria-hidden="true">&middot;</span><span>Service marketplaces</span></div></div>
 
 <section><div class="wrap">
 <div class="sec-head"><div class="chip">Why Relavoi</div><h2>Privacy isn't a feature. It's the product.</h2><p>Every call between your agents and customers routes through a temporary proxy number. When the job ends, the connection disappears.</p></div>
 <div class="grid g3">
 <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Stop off-platform leakage</h3><p>Drivers and customers can't take the relationship, or the revenue, off your app once the session expires.</p></div>
 <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div><h3>No app on the customer's side</h3><p>Calls run over Nigerian PSTN, so they reach any handset: smartphone or feature phone. No VoIP client, no data plan, nothing to install.</p></div>
-<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h3>Privacy built in</h3><p>Phone numbers AES-256-GCM encrypted at rest under per-tenant keys, and never written to logs in plaintext. Call recording is coming soon, and will only run after a consent message the caller hears first.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><h3>Privacy built in</h3><p>Phone numbers AES-256-GCM encrypted at rest under per-tenant keys, never returned by the API, and never written to logs in plaintext.</p></div>
 </div>
 </div></section>
 
@@ -94,7 +94,7 @@
 </div></div></section>
 
 <section class="pt0"><div class="wrap">
-<div class="sec-head"><div class="chip">Industries</div><h2>Wherever strangers need to talk.</h2></div>
+<div class="sec-head"><div class="chip">Industries</div><h2>Wherever strangers need to talk.</h2><p>Session length is configurable up to 24 hours. The default cap is 120 minutes and the default grace period 15.</p></div>
 <div data-tabs="Industries"><div class="tab-panels">
 <article class="tab-panel">
 <div class="stage dark" aria-hidden="true"><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">D</div><div><div class="r">Driver</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">R</div><div><div class="r">Rider</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
@@ -114,7 +114,7 @@
 </article>
 <article class="tab-panel">
 <div class="stage dark" aria-hidden="true"><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">P</div><div><div class="r">Patient</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">P</div><div><div class="r">Provider</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>
-<div class="tab-copy"><h3>Telemedicine</h3><p>Patients reach providers without clinicians exposing personal lines. Recording only ever starts after the consent prompt plays.</p><span class="badge">session: consult_id · consent prompt</span></div>
+<div class="tab-copy"><h3>Telemedicine</h3><p>Patients reach providers without clinicians exposing personal lines, on a number that stops working when the consult is over.</p><span class="badge">session: consult_id · ttl 2h</span></div>
 </article>
 <article class="tab-panel">
 <div class="stage dark" aria-hidden="true"><div class="ghosted tilt-l"><div class="float sess"><div class="who"><div class="av g">A</div><div><div class="r">Artisan</div><div class="n">+234 ••• 4421</div></div></div><div class="vline"></div><div class="proxy-chip"><span class="live"></span>+234 201 342 0117</div><div class="vline"></div><div class="who"><div class="av a">C</div><div><div class="r">Customer</div><div class="n">+234 ••• 1192</div></div></div></div></div></div>

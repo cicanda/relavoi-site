@@ -4,7 +4,8 @@ Every factual assertion on the marketing site, and where it comes from. Update
 this file in the same commit as any copy change. Anything that can't be sourced
 here doesn't ship.
 
-Verified against the live platform and the backend source on 2026-09-28.
+Verified against the live platform and the backend source on 2026-09-28, and again on
+2026-11-01 for the pricing, SMS, recording, push and SDK claims.
 
 ## Claims that ship
 
@@ -26,8 +27,13 @@ Verified against the live platform and the backend source on 2026-09-28.
 | Outbound webhook contract | `src/services/tenant-webhook-delivery.ts` | `X-Relavoi-Signature: sha256=<hmac of timestamp.body>`, dedupe header `X-Relavoi-Delivery`, body `{event,timestamp,data}`. Retries with exponential backoff, logs each attempt. |
 | Event names | `CLAUDE.md` § Event Bus; `src/workers/event-consumers.ts` | `session.created/expired`, `call.incoming/answered/ended/failed`, `sms.sent`. |
 | Recording gated on consent | `response-builder.ts` emits `record="true"` only after the consent action | Recordings live at the provider; encrypted storage is a roadmap item. |
-| Metered pricing, 3 tiers, NGN | `src/seeds/pricing-seed.ts` | STARTER / GROWTH / ENTERPRISE, five metrics each. **Needs commercial sign-off. See Open items.** |
-| Inbound SMS not billed | `sms_received` unit price `0` on every tier | |
+| Monthly plans, NGN, included minutes plus overage | `plans` table, live database, read 2026-11-01 | STARTER 50,000 / 1,500 / 35.00; GROWTH 250,000 / 8,000 / 32.00; SCALE 1,000,000 / 35,000 / 30.00; ENTERPRISE 27.00 overage, shown as "talk to us". Concurrency figures are `max_concurrent_sessions`. Published static; see CLAUDE.md. |
+| Prepaid wallet, per started minute, answered only | `src/services/billing/`, `wallet_ledger`; `GET /v1/billing/wallet` | Verified live on 2026-11-01: the endpoint returns the STARTER plan block with NGN 50,000.00 and NGN 35.00. |
+| Nigerian mobile numbers only | `countries` holds one enabled row, NG, `mobile_pattern ^[789][0-9]{9}$`; session parties normalise with `allow: 'mobile'`; `assertSameCountry` refuses cross-border | The API's own refusal says "Relavoi currently connects Nigerian mobile numbers only." A landline is accepted only as a tenant's REDIRECT_SUPPORT target, never as a party. |
+| Session length configurable up to 24 hours | `maxDurationMinutes` is `.max(1440)` in `POST /sessions`; default 120 from `SESSION_DEFAULT_MAX_DURATION_MINUTES` | Grace period has the same 1440 ceiling. |
+| Webhook replay window of five minutes | `docs/guides/webhook-integration.md`: reject `|now - timestamp| > 300` | Advice to the receiver, not something we enforce. We sign `X-Relavoi-Timestamp` so they can. |
+| iOS Live Activities | `relavoi-ios-sdk` v0.2.0, `Sources/RelavoiSDK/LiveActivity/`, `public final class LiveActivityManager` | Public and in the released tag, and in the SDK README. Not reachable from the `Relavoi` facade, and the host app must ship a Widget Extension and set `NSSupportsLiveActivities`, which the page now says. |
+| In-call verification | `CallVerificationManager` wired into the public facade in all three SDKs (`Relavoi.swift:66`, `Relavoi.kt:141`, `relavoi.dart:23`) | The one SDK feature that is wired, released and the same on every platform. |
 | Docs deep links | Every URL probed against the live site, 200 only | `/guides` and `/api-reference` have no index page, so don't link them. |
 | iOS / Android / Flutter SDK identifiers | `Package.swift` (`RelavoiSDK`), `build.gradle.kts` (`com.relavoi.sdk`), `relavoi-flutter-sdk` | No version numbers published, since they'd go stale. |
 
@@ -69,16 +75,36 @@ Verified against the live platform and the backend source on 2026-09-28.
 | Team grid with "Founder name" × 4 | Placeholder people. Removed rather than invented, and replaced with an honest Live / In progress / Roadmap section. |
 | Phone `+234 800 000 0000` | Placeholder number. Removed; office hours kept. |
 | Contact form's fake success message | It rendered "we'll be in touch" while sending nothing anywhere. Now composes a real `mailto:` with the field values. |
+| SMS masking, everywhere it appeared | Removed on 2026-11-01. `sms_records` holds zero rows, nothing has ever sent one, and the only SMS code path is a lazily constructed SDK client that no live traffic reaches. The products section, the "every tier includes SMS" line, the three SMS pricing rows, the `sms.sent` webhook event and the SMS entry in the REST API card are all gone. It is named once, on the roadmap list. |
+| Call recording, everywhere it appeared | Removed on 2026-11-01. `RECORDING_AVAILABLE = false` in `src/services/features.ts`, and the gate exists because the API would otherwise have accepted `recordingEnabled`. "Coming soon" labels on the voice feature list, the privacy card and the telemedicine card are gone, as is "recording consent" from the Developers concepts card. Named once, on the roadmap list. |
+| Branded push alerts | Removed on 2026-11-01. The SDKs register device tokens and expose a hook; the host app renders the notification. More to the point the platform cannot send one: no `FIREBASE_*` value is set on the box and `device_tokens` holds zero rows. Removed from the products SDK list, the how-it-works step 04 and the Developers SDK blurb. Named once, on the roadmap list. |
+| Post-call rating and issue-report components | Removed on 2026-11-01. They do not exist in any of the three SDKs: no file, class or symbol matching post-call, rating or issue anywhere under `Sources/`, `src/main/` or `lib/`. Not on the roadmap list either, because nobody has asked for it. |
+| Prometheus metrics endpoint | Removed from customer-facing copy on 2026-11-01. `/metrics` is real but guarded by `METRICS_TOKEN` through the public proxy and answers 404 without it, so it is an operator surface, not a tenant one. |
+| "Priced in naira. Billed by usage." / "No platform fee" | Removed on 2026-11-01. Both describe the metered seed pricing that the `plans` table replaced. There is a monthly fee, and it is the larger half of the bill. |
+| "See every call. Store no numbers." | Reworded to "Never see a number" on 2026-11-01. We do store numbers, as AES-256-GCM ciphertext; what we never do is show them to anybody, including the tenant. The old line claimed the stronger thing and the weaker thing was the true one. |
+| "headquartered in Lagos" (`about.html`) | Removed on 2026-11-01. The footer carries the registered address, which is in Abuja, with an RC number behind it. Two different head offices on one site is a question for Kay, not something to resolve by picking one. |
+| "Nigerian carriers" (`about.html` values card) | Reworded to "Nigerian networks" on 2026-11-01, for the same reason the "4 carriers" logo claim went: we hold no carrier relationships. |
 | "millions of couriers" | Unverifiable hyperbole. |
 | "We're hiring engineers and telecom specialists" | Unverifiable. Reworded to pilot partners. |
 
 ## Open items
 
-- **Pricing needs commercial sign-off.** The naira rates on `products.html` come
-  from `pricing-seed.ts`, which is the only machine-readable source of truth,
-  but it's a *seed file*, and it may hold development placeholders rather than
-  agreed commercial rates. Published prices are a commitment. Confirm before
-  this page is public.
+- **Pricing is published as introductory and subject to written confirmation.**
+  The rates now come from the `plans` table in the live database rather than
+  from a seed file, which is a real source of truth, and Kay approved these
+  four plans on 2026-11-01. The page says so in as many words, because a
+  published price is a commitment: "Introductory pricing, subject to
+  confirmation in writing before you go live."
+- **Enterprise has concrete numbers in the table that the site does not
+  publish.** The row reads NGN 3,000,000 a month for 105,000 included minutes
+  at NGN 27.00 overage. Kay's instruction was to show Enterprise as "talk to
+  us, from NGN 27", so the monthly fee and the allowance are deliberately not
+  on the page. If that changes, the row is already there.
+- **Lagos or Abuja.** `about.html` said "headquartered in Lagos", the footer
+  gives a registered address in Abuja with an RC number, and `contact.html`
+  still says the office is in Lagos. The claim removed is the vaguest of the
+  three; the contact page is left alone because changing an address on a guess
+  is worse than an inconsistency Kay can settle in one sentence.
 - **`relavoi.com` has no DNS record.** Only `api.relavoi.com` and
   `docs.relavoi.com` resolve. `sales@relavoi.com` and `support@relavoi.com` on
   the contact page will bounce until MX records exist, and the site itself has
@@ -91,6 +117,10 @@ Verified against the live platform and the backend source on 2026-09-28.
   exactly as Companies Registry has it before this goes public.
 - **Team section was removed**, not replaced. Supply names, roles and photos if
   you want it back.
+- **The products SDK illustration still draws a push notification.** The
+  claim is gone from the copy but the phone mock-up beside it shows "Your
+  courier is calling". That is Genesis's artwork, so it is listed for them
+  rather than edited here.
 - The stat band is honest but soft. Once real telemetry exists (`/metrics`
   already exports routing histograms), replace targets with measurements and
   move those rows into the table above.
