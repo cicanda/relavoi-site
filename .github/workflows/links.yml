@@ -1,0 +1,41 @@
+name: Links
+
+# check-links.py verifies that every link on the site resolves: local pages and
+# assets exist on disk, in-page anchors match a real id, and external URLs
+# answer. The script existed and CI never called it, so a page could ship with
+# a dead href and nothing would say so.
+#
+# Two jobs, because the two halves of that check are not the same kind of fact.
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Mondays, 07:00 UTC.
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+jobs:
+  local:
+    # Blocking. Every check here is a fact about the files in this commit, so
+    # it gives the same answer every time and a failure is always ours.
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Links, anchors and assets resolve
+        run: python3 check-links.py --skip-external
+
+  external:
+    # Scheduled, not per-push. These URLs are other people's servers: one of
+    # them being down for a minute would otherwise redden a pull request that
+    # did not touch it. A failure here is still a real failure, it just means
+    # "a link we publish is dead" rather than "this change is bad".
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Every link, external ones included
+        run: python3 check-links.py

@@ -4,10 +4,18 @@
 Local pages and assets must exist on disk; in-page anchors must match a real
 id; external URLs must return < 400. Run before every deploy:
 
-    python3 check-links.py            # check the files in this directory
-    python3 check-links.py --live     # also re-check against relavoi.com
+    python3 check-links.py                   # check the files in this directory
+    python3 check-links.py --live            # also re-check against relavoi.com
+    python3 check-links.py --skip-external   # on-disk and anchor checks only
 
 Exits non-zero if anything is broken, so it can gate a deploy.
+
+--skip-external exists for CI. Everything else this script checks is a fact
+about the files in this directory and gives the same answer every time, so it
+can gate a merge. An external URL is somebody else's server: it can be down
+for a minute and redden a pull request that did not touch it. The external
+half still runs, on a schedule, where a failure means a link we publish is
+dead rather than that a build is blocked. See .github/workflows/links.yml.
 """
 import glob
 import os
@@ -53,8 +61,10 @@ def head(url, timeout=15):
 
 def main():
     live = "--live" in sys.argv
+    skip_external = "--skip-external" in sys.argv
     problems = []
     checked_remote = {}
+    skipped = set()
 
     for src in PAGES + EXTRA_SOURCES:
         name = os.path.basename(src)
@@ -68,6 +78,9 @@ def main():
             if link.startswith(("mailto:", "tel:", "data:")):
                 continue
             if link.startswith(("http://", "https://")):
+                if skip_external:
+                    skipped.add(link)
+                    continue
                 if link not in checked_remote:
                     checked_remote[link] = head(link)
                 status = checked_remote[link]
@@ -101,11 +114,18 @@ def main():
 
     total = len(checked_remote)
     if problems:
-        print(f"{len(problems)} problem(s) found ({total} external URLs checked):\n")
+        scope = "external URLs skipped" if skipped else f"{total} external URLs checked"
+        print(f"{len(problems)} problem(s) found ({scope}):\n")
         for p in problems:
             print("  ✗", p)
         return 1
-    print(f"All links OK — {len(PAGES)} pages, {total} external URLs checked.")
+    if skipped:
+        print(
+            f"All local links OK: {len(PAGES)} pages, "
+            f"{len(skipped)} external URLs not checked (--skip-external)."
+        )
+        return 0
+    print(f"All links OK: {len(PAGES)} pages, {total} external URLs checked.")
     return 0
 
 
