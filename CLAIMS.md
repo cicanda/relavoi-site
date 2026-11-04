@@ -11,7 +11,7 @@ Verified against the live platform and the backend source on 2026-09-28, and aga
 
 | Claim | Source | Notes |
 |---|---|---|
-| Nigerian market, Lagos number pool | `proxy_numbers` region `lagos`; `GET /v1/numbers/pool` | Single region. Multi-country is a Phase 4 item. Do not imply it. |
+| Nigerian market, Lagos number pool | `proxy_numbers` region `lagos`; `GET /v1/admin/fleet` | Single region. Multi-country is a Phase 4 item. Do not imply it. `GET /v1/numbers/pool` no longer evidences this: since the number quota work it reports a workspace's own holding, not the pool's regions. |
 | Private beta | No self-service onboarding; tenant provisioning is manual | Phase 3 item. |
 | Calls run over PSTN, reach any handset | `CLAUDE.md` § Network Resilience; `<Dial>` via the carrier gateway | Genuinely differentiating: feature phones work. |
 | `<500ms` call-routing budget, p99 | `CLAUDE.md` § Performance Targets | **Target, not a measurement.** Page labels it as such. |
