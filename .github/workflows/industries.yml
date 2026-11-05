@@ -1,0 +1,39 @@
+name: Industries
+
+# check-industries.py compares the industry dropdown on contact.html with the
+# list the API actually accepts, served by GET /v1/reference. That list lives in
+# relavoi-backend/src/services/reference-data.ts and is what both dashboards
+# build their dropdown from; this form is its only other copy, because the site
+# is static and makes no API calls. Without this check, adding a vertical in the
+# backend would leave the published form quietly offering the old set.
+#
+# Schedule and manual only, deliberately. It reads a live server, so the API
+# being down for a minute would otherwise redden a pull request that did not
+# touch this file. A failure here means the published form and the API
+# disagree, which is real, but it is not a reason to block a merge. Same split
+# as the external half of the Links workflow.
+#
+# The script exits 2 when it could not fetch the list at all, so a network
+# problem is distinguishable from a real mismatch in the log.
+
+on:
+  schedule:
+    # Mondays, 07:30 UTC. Half an hour after the Links check, so the two
+    # scheduled jobs do not report at the same moment.
+    - cron: "30 7 * * 1"
+  workflow_dispatch:
+    inputs:
+      api:
+        description: "API base URL to compare against"
+        required: false
+        default: "https://api.relavoi.com/v1"
+
+jobs:
+  industries:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: The contact form offers the industries the API accepts
+        run: python3 check-industries.py --api "$API"
+        env:
+          API: ${{ github.event.inputs.api || 'https://api.relavoi.com/v1' }}
