@@ -18,7 +18,7 @@
 <meta name="twitter:description" content="Keep every customer on your platform. Relavoi connects your users' calls through a temporary number, so neither side keeps the other's. One API, any handset.">
 <meta name="twitter:image" content="https://relavoi.com/og-card.png">
 <meta name="twitter:image:alt" content="relavoi on an ink background, with the line &quot;Keep every customer on your platform.&quot;">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="site.css">
+<link rel="preload" href="fonts/sora-variable.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="site.css">
 <style>
 .hero{padding:clamp(48px,8vw,96px) 0 clamp(48px,7vw,88px)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(40px,6vw,80px);align-items:center}
@@ -26,19 +26,19 @@
 .hero h1 em{font-style:normal;color:var(--sig-6)}
 .hero .lede{font-size:clamp(17px,1.7vw,20px);max-width:560px;margin-top:24px}
 .hero-visual{position:relative}
-.hero-visual::before{content:"";position:absolute;inset:8% 0;background:radial-gradient(closest-side,rgba(91,201,122,.32),transparent);filter:blur(24px);z-index:-1}
+.hero-visual::before{content:"";position:absolute;inset:8% 0;background:radial-gradient(closest-side,rgba(11,122,107,.32),transparent);filter:blur(24px);z-index:-1}
 .flow{display:flex;flex-direction:column;max-width:420px;margin:0 auto}
 .flow .party{align-self:flex-start;padding:16px 20px}
 .flow .party:last-child{align-self:flex-end}
 .flow .who .n{text-decoration:line-through;text-decoration-color:var(--ink-4);color:var(--ink-5)}
 .flow .line{width:2px;height:44px;align-self:center;background:repeating-linear-gradient(180deg,var(--ink) 0 6px,transparent 6px 12px);background-size:2px 24px;animation:fdash 1s linear infinite}
 @keyframes fdash{to{background-position:0 24px}}
-.flow .proxy{align-self:center;text-align:center;background:var(--ink);color:#fff;border-radius:20px;padding:22px 28px;box-shadow:0 30px 60px -20px rgba(11,18,32,.55),0 0 0 8px rgba(91,201,122,.14)}
+.flow .proxy{align-self:center;text-align:center;background:var(--ink);color:#fff;border-radius:20px;padding:22px 28px;box-shadow:0 30px 60px -20px rgba(14,27,44,.55),0 0 0 8px rgba(11,122,107,.14)}
 .flow .proxy .eyebrow{color:var(--sig);display:flex;align-items:center;justify-content:center;gap:8px}
 .flow .proxy .n{font:500 clamp(17px,2vw,20px)/1.3 var(--mono);margin-top:10px;white-space:nowrap}
 .flow-note{margin-top:22px;text-align:center;font:400 12px/1.5 var(--mono);color:var(--ink-5)}
 .strip{display:flex;align-items:center;justify-content:space-between;gap:16px 32px;flex-wrap:wrap;padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.strip span:not(.eyebrow){font:600 clamp(19px,2vw,22px)/1.2 var(--sans);letter-spacing:-.03em;color:#6B7587}
+.strip span:not(.eyebrow){font:600 clamp(19px,2vw,22px)/1.2 var(--sans);letter-spacing:-.03em;color:#5B6B7A}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(28px,4vw,48px)}
 .stat{padding:0 clamp(16px,2vw,28px);border-left:1px solid rgba(255,255,255,.1)}
 .stat:first-child{padding-left:0;border-left:0}
