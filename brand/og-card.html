@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Brand: Ink ground, Pulse Teal accent (dark grounds), Sora 600 headline,
+     IBM Plex Mono for the number. Proxy Amber is used once, on the dot that
+     the guidelines reserve for the proxy moment. */
+  :root{
+    --ink:#0E1B2C; --relay:#0B7A6B; --pulse:#2CC5AE;
+    --amber:#F5A524; --mist:#EEF3F2; --slate:#5B6B7A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1200px;height:630px}
+  body{
+    background:var(--ink);
+    font-family:'Sora',system-ui,sans-serif;
+    position:relative;overflow:hidden;
+  }
+  /* The same glow the site hero uses, kept well under the text. */
+  .glow{position:absolute;width:760px;height:760px;right:-200px;bottom:-320px;
+        background:radial-gradient(closest-side,rgba(44,197,174,.30),transparent);
+        filter:blur(10px)}
+  .frame{position:relative;height:100%;padding:76px 84px;
+         display:flex;flex-direction:column;justify-content:space-between}
+  /* align-self, because a flex column stretches its children and an <img>
+     stretched to the full width centres its SVG inside that box. */
+  .logo{height:62px;width:226px;align-self:flex-start}
+  h1{font-weight:600;font-size:82px;line-height:1.04;letter-spacing:-.035em;
+     color:#fff;max-width:980px}
+  h1 em{font-style:normal;color:var(--pulse)}
+  .foot{display:flex;align-items:center;gap:18px;
+        font-family:'IBM Plex Mono',monospace;font-size:21px;color:var(--slate)}
+  .num{color:var(--mist)}
+  .dot{width:11px;height:11px;border-radius:50%;background:var(--amber);
+       display:inline-block;flex:0 0 auto}
+  .rule{flex:1;height:1px;background:rgba(238,243,242,.14)}
+</style></head>
+<body>
+<div class="glow"></div>
+<div class="frame">
+  <img class="logo" src="logo.svg" alt="relavoi">
+  <h1>Keep <em>every customer</em><br>on your platform.</h1>
+  <div class="foot">
+    <span class="dot"></span>
+    <span class="num">+234 900 000 0100</span>
+    <span class="rule"></span>
+    <span>relavoi.com</span>
+  </div>
+</div>
+</body></html>

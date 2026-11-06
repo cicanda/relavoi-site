@@ -84,6 +84,34 @@ had reached the public API reference (`api-reference/target-swap.md`), the
 published OpenAPI spec, an admin console placeholder and a Flutter test
 fixture. Use the convention above instead.
 
+## The share card
+
+`og-card.png` at the site root, 1200x630, 83 KB. Every page points at the same
+one.
+
+Built from the brand archive rather than improvised: Ink `#0E1B2C` ground,
+Pulse Teal `#2CC5AE` on the accented words (the guidelines reserve Relay Teal
+for text on white and Pulse Teal for dark grounds), Proxy Amber `#F5A524` on a
+single dot beside the number, which is the one use the guidelines allow it.
+Sora 600 for the headline, IBM Plex Mono for the number. The lockup is
+`relavoi_logo_2.svg`, the reversed one made for dark grounds.
+
+The number on the card is `+234 900 000 0100`, the proxy from the example
+convention above, for the same reason every other published number is.
+
+Regenerate it from `brand/og-card.html`: serve the folder and screenshot at
+1200x630. It is kept in the repository so the card can be changed without
+anyone having to reconstruct the recipe, and it is in a subfolder because the
+copy guards glob `*.html` at the root and would otherwise treat it as a page.
+
+Each page carries its own `og:title` (its `h1`) and its own `og:description`
+(its existing meta description, which is already checked against this file, so
+a social preview cannot drift from the page it previews). `twitter:card` is
+`summary_large_image`.
+
+One card serves all six pages. A per-page card would be better and is not
+built; if the homepage headline changes, this card has to change with it.
+
 ## Example companies
 
 Same problem, same answer. A real company used as a fixture implies a customer
