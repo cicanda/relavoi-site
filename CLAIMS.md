@@ -84,6 +84,29 @@ had reached the public API reference (`api-reference/target-swap.md`), the
 published OpenAPI spec, an admin console placeholder and a Flutter test
 fixture. Use the convention above instead.
 
+## Example companies
+
+Same problem, same answer. A real company used as a fixture implies a customer
+we do not have, which is why the logo wall came down.
+
+| Role | Use |
+|---|---|
+| The example tenant | `Example Logistics` |
+| Its app bundle id | `com.example.rider` |
+| The verification banner string | a role, not a brand: "Your rider is calling" |
+
+`example.com` and the `com.example` reverse-DNS namespace are reserved for
+documentation by RFC 2606 and RFC 6761, so the bundle id cannot collide with a
+real app the way `com.chowdeck.rider` did.
+
+No claim about a named company's product ships, ours or anyone else's. Not
+"Bolt and Uber connect riders and drivers using raw MSISDNs", not "unlike
+Burner and Hushed", not a carrier or CPaaS vendor name. We say what we do.
+
+Not covered by this pass: the backend dev-seed and test fixtures still name a
+real company. They are not published copy. `docs/backlog.md` in
+relavoi-backend carries it.
+
 Not covered by this pass: the SDK unit-test fixtures in all three repositories
 still use numbers in real operator ranges. They are not published copy, and a
 phone-normalising test needs inputs in the formats people actually type, so
@@ -144,6 +167,11 @@ fixed.
 | Implementation internals in marketing copy and the security guide | Removed on 2026-11-06. Gone: "atomic Redis allocator", "one Redis Lua script", "a circuit breaker tracks the carrier gateway's error rate and trips on sustained failure", "the routing decision is cached by event ID", the dead-letter queue, "salted hashes", the PBKDF2 recipe and iteration count, the key-derivation diagram, column names, the bcrypt cost factor, the Docker network, and the logger's field list. What each one promised is still on the page: "two calls can never be crossed onto the same number", "duplicate carrier events never create duplicate call legs", "we know within seconds when the provider starts failing". The guarantee is the claim; the machinery is how we keep it, and it can change without the page becoming a lie. |
 | Itemised roadmaps (`about.html` "On the roadmap", `products.html` "Not built yet", `how-it-works.html` secondary-provider pools) | Replaced on 2026-11-06 with one line: more is on the way, ask us. A dated list of unbuilt features is a promise with a schedule attached that nobody agreed to, and it goes stale silently. The rule that the site claims only what is live is unchanged; what is live is still listed in full. The docs keep their `## Not built yet` section, because a developer reading the reference needs to know which fields will be refused, and ten pages link to that anchor. |
 | "Enterprise starts at ₦27.00 per extra minute" (`products.html`) | Removed on 2026-11-06. Now "Beyond Scale, talk to us." The three published plan figures are unchanged and still match the `plans` table. The Enterprise row in that table still reads ₦27.00; pricing is being revised separately, and an overage rate on the page is a commitment that revision would break. |
+| Claims about named companies' products (docs `introduction.md`) | Removed on 2026-11-06. "There is currently no dedicated number-masking provider operating in the Nigerian market, which is why Bolt and Uber connect riders and drivers using raw MSISDNs today" and "Unlike consumer privacy apps (Burner, Hushed)". Four real companies, two of them prospective customers, and a claim about what each does that we have not verified and could not correct if they changed it. Replaced with what Relavoi is for. |
+| "Chowdeck" as the example tenant, in eleven places across the docs | Removed on 2026-11-06. A real delivery company, no relationship with them, named as the workspace in the signup, auth and config examples, as `com.chowdeck.rider`, and in two SDK verification banners. The site's logo wall came down for this reason in September and the docs kept doing it. Now `Example Logistics` and `com.example.rider`. |
+| "The `routing.latency.ms` metric is surfaced per tenant in Analytics" (docs `guides/call-flow.md`) | Removed on 2026-11-06. **No such metric exists**, and nothing returns routing latency per workspace: `call_routing_duration_seconds` is a Prometheus histogram on `/metrics`, which is operator-only behind `METRICS_TOKEN`. The page told integrators to build an alert on a field they would never receive. It now says so and offers to expose one. |
+| The internal latency table and the breaker mechanics (docs `guides/call-flow.md`, `guides/failover.md`) | Removed on 2026-11-06. Gone: the per-stage millisecond budget naming Fastify, `crypto.timingSafeEqual` and the Redis key for each lookup, "the Call Router is explicitly designed to never hit Postgres", the Redis participant in the sequence diagram, the trip thresholds (5 consecutive failures, 10% over 2 minutes, 5 health checks, 95% over 5 minutes) and the breaker state machine. What a developer acts on stays and grew: the three states and what each means for their app, the real `GET /v1/health/cpaas` shape verified against the live endpoint, and four things to do on their side. |
+| "A second provider to fail over **to** does not exist yet" (docs `guides/failover.md`) | Removed on 2026-11-06 from that page only. The observable behaviour it explained stays stated plainly: while the provider is degraded, new session creation is **refused**, not rerouted. The unavailability itself is still disclosed once, in `introduction.md` under Not built yet, which is where the docs keep that kind of statement and which ten pages link to. |
 
 ## Open items
 
