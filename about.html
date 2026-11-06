@@ -35,7 +35,7 @@
 <section class="pt0"><div class="wrap"><div class="panel-dark">
 <div class="sec-head"><div class="chip">What we believe</div><h2>Principles we ship by.</h2></div>
 <div class="grid g3 vals">
-<div class="card val"><h3>Privacy is the default</h3><p>Real numbers are encrypted at rest under per-tenant keys and never returned by the API, not even to you. Lookups run on salted hashes, and plaintext numbers never reach a log line.</p></div>
+<div class="card val"><h3>Privacy is the default</h3><p>Real numbers are encrypted at rest under per-tenant keys. We never hand one back, not even to you: a session shows the last four digits and nothing more. Matching a caller to their session never needs the number itself, and a plaintext number never reaches a log line.</p></div>
 <div class="card val"><h3>Reliability beats features</h3><p>A missed call is a missed delivery. We'd rather ship less and page less.</p></div>
 <div class="card val"><h3>Local first</h3><p>Nigerian networks, naira pricing, private by design. Then the rest of the continent.</p></div>
 </div>
@@ -43,9 +43,9 @@
 <section><div class="wrap">
 <div class="sec-head"><div class="chip">Where we are</div><h2>Early, and honest about it.</h2><p>Relavoi is in private beta. Here's what's live, what's next, and what's still on paper.</p></div>
 <div class="road">
-<div class="card"><span class="status live">Live</span><p>Voice masking, session lifecycle, atomic number allocation, signed webhooks, WebSocket events, usage metering, tenant dashboard and operator console.</p></div>
+<div class="card"><span class="status live">Live</span><p>Voice masking, session lifecycle, number allocation that cannot cross two calls onto one number, signed webhooks, WebSocket events, usage metering, tenant dashboard and operator console.</p></div>
 <div class="card"><span class="status prog">In progress</span><p>SDK hardening across iOS, Android and Flutter. Self-service onboarding. Automated number provisioning and pool auto-scaling.</p></div>
-<div class="card"><span class="status next">On the roadmap</span><p>SMS masking, call recording with a consent prompt, push notifications before a call, secondary-carrier failover pools, WhatsApp masking, USSD fallback, and expansion beyond Nigeria.</p></div>
+<div class="card"><span class="status next">On the roadmap</span><p>More is on the way. If something you need isn't here yet, ask us and we'll tell you honestly where it stands.</p></div>
 </div>
 </div></section>
 <section class="pt0"><div class="wrap"><div class="panel-dark cta-band"><div><h2>Build the trust layer with us.</h2><p>We're taking on pilot partners in delivery, ride-hailing and logistics.</p></div><div class="btn-row"><a href="contact.html" class="btn btn-g">Get in touch<span class="arr" aria-hidden="true"></span></a></div></div></div></section>

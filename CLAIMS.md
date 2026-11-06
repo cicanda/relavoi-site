@@ -5,7 +5,9 @@ this file in the same commit as any copy change. Anything that can't be sourced
 here doesn't ship.
 
 Verified against the live platform and the backend source on 2026-09-28, and again on
-2026-11-01 for the pricing, SMS, recording, push and SDK claims.
+2026-11-01 for the pricing, SMS, recording, push and SDK claims, and again on
+2026-11-06 for every security and privacy claim on the site and in the docs
+security guide.
 
 ## Claims that ship
 
@@ -17,10 +19,14 @@ Verified against the live platform and the backend source on 2026-09-28, and aga
 | `<500ms` call-routing budget, p99 | `CLAUDE.md` § Performance Targets | **Target, not a measurement.** Page labels it as such. |
 | 15 min default grace period | `SESSION_DEFAULT_GRACE_PERIOD_MINUTES`, `tenants.default_grace_period` | Per-tenant override live since `a5aab54`. |
 | 120 min default session cap | `SESSION_DEFAULT_MAX_DURATION_MINUTES`, `tenants.default_session_ttl_min` | Verified in live session responses. |
-| AES-256-GCM at rest, per-tenant keys | `src/utils/crypto.ts`; `sessions.party_*_phone_enc` | Lookups go via salted SHA-256 hashes. |
+| AES-256-GCM at rest, per-tenant keys | `src/utils/crypto.ts:13` (`ALGO = 'aes-256-gcm'`); `src/utils/keyring.ts:170` derives per tenant, PBKDF2-SHA256 100k | True as written. The site says "per-tenant keys" and stops there; the derivation is not published. |
+| The API never returns a number anyone could dial, only the last four digits | `src/api/routes/sessions.ts:138-139` -> `maskedFromLast4` in `src/utils/redact.ts:66`, which renders `+234******5678` from `sessions.party_a_last4` (migration 012) | **Corrected 2026-11-06.** The site and `about.html` both said numbers are "never returned by the API, not even to you". Four digits are returned, by design, so a seller can tell one session from another. The claim now states the guarantee that is actually true. |
+| Matching a caller to a session never needs the number | `hashPhoneBlind`, `src/utils/crypto.ts:182`: HMAC-SHA256 keyed by `PHONE_HASH_SECRET`, a secret only the platform holds | **Corrected 2026-11-06.** `about.html` said "lookups run on salted hashes". That described the tenant-id-keyed columns dropped on 2 November 2026, and a tenant id is not a salt because it is not secret. `hashPhone` has no caller in `src`. |
+| A number is decrypted only when the number itself is needed | Call sites: `services/call-router.ts:358` (dialling), `services/sms-router.ts:146`, `services/session-manager.ts:828-833` (target swap, comparing against both parties), plus `services/reencrypt.ts` and `scripts/verify-restore.ts` as operator actions | The docs security guide first claimed "exactly two moments". Target swap and key rotation are a third and fourth, so the guide now names them. Nothing decrypts to search, report, bill or display. |
+| No phone number is written to a log in plaintext | `src/utils/logger.ts` redact paths, plus a `req` serializer that drops every query string and masks the carrier callback path | True, and enforced by a field-name list rather than proved: a new field carrying a number has to be added to it. The docs say so. |
 | Numbers never logged in plaintext | `CLAUDE.md` § Code Style (hard rule) | |
 | Consent prompt can't be skipped when recording | `createSession()` rejects `recordingEnabled` + `consentPrompt: NONE` | NDPR requirement; enforced server-side. |
-| Carrier callbacks authenticated by a secret callback address | `authorizeCallback()` in `src/api/routes/webhooks.ts`; `CPAAS_CALLBACK_TOKEN`, `CPAAS_CALLBACK_ENFORCE=true` | The gateway posts to a path carrying a secret token, compared in constant time. A signature path exists but whether the provider signs voice callbacks is unconfirmed, so **do not claim carrier webhooks are HMAC-signed**. Only the webhooks Relavoi sends to businesses are signed. |
+| Webhooks Relavoi sends you are HMAC-signed | `src/services/tenant-webhook-delivery.ts` | Unchanged. **Do not claim carrier webhooks are HMAC-signed**; a signature path exists but whether the provider signs voice callbacks is unconfirmed. How callbacks *into* Relavoi are authenticated is no longer described on any public surface: see the removals table. |
 | iOS / Android / Flutter SDKs | `relavoi-{ios,android,flutter}-sdk` | Exist and build. Deliberately no maturity claim: the July audit found API contract drift. |
 | API shape in the code sample | Live `POST /v1/auth/token` + `POST /v1/sessions` | Key prefixes `rk_live_` / `rs_`, JWT bearer, JSON body, camelCase response. |
 | Two-party sessions | `direction_mode` ∈ BIDIRECTIONAL / A_TO_B_ONLY / B_TO_A_ONLY | Strictly two parties. No multi-party chain exists. |
@@ -36,6 +42,54 @@ Verified against the live platform and the backend source on 2026-09-28, and aga
 | In-call verification | `CallVerificationManager` wired into the public facade in all three SDKs (`Relavoi.swift:66`, `Relavoi.kt:141`, `relavoi.dart:23`) | The one SDK feature that is wired, released and the same on every platform. |
 | Docs deep links | Every URL probed against the live site, 200 only | `/guides` and `/api-reference` have no index page, so don't link them. |
 | iOS / Android / Flutter SDK identifiers | `Package.swift` (`RelavoiSDK`), `build.gradle.kts` (`com.relavoi.sdk`), `relavoi-flutter-sdk` | No version numbers published, since they'd go stale. |
+
+## Example numbers
+
+**One convention, everywhere a number appears as an example.** Recorded here
+because the alternative is each page inventing its own, which is how
+`+234 201 342 0117` came to sit on five pages one digit-group away from our
+real DID.
+
+| Role | E.164 | Local |
+|---|---|---|
+| Party A: agent, courier, driver, app user | `+2349000000001` | `09000000001` |
+| Party B: customer, rider, buyer, patient | `+2349000000002` | `09000000002` |
+| The proxy number Relavoi allocates | `+2349000000100` | |
+| A tenant's own support line | `+2349000000200` | |
+
+In **prose and diagrams**, a party is shown masked instead, which is how the
+platform itself renders one: `+234 803 ••• 4421`. Only the proxy is ever shown
+in full, because the proxy is the number the reader is meant to understand as
+dialable.
+
+Why `0900`: NCC's mobile number allocation table assigns every mobile code in
+use to a named operator, and the groups it recognises are `070x`, `080x`,
+`081x`, `090x` and `091x`. `0900` is the one code in that table held by no
+operator; it is reserved for vanity number services, so it is not an
+assignable mobile range and cannot be somebody's handset. The all-zero
+subscriber block is not issued as a line either. It still satisfies the
+platform's own validation (a national significant number of ten digits
+starting 7, 8 or 9, `countries.mobile_pattern`), so a developer who copies a
+sample gets a request the API accepts rather than a `422` on their first try.
+
+Two rules follow.
+
+**No realistic-looking full Nigerian number ships anywhere.** Not on the site,
+not in the docs, not in an SDK README or sample app, not as a form
+placeholder, not in the published OpenAPI spec. A number in a real operator's
+range is somebody's line.
+
+**Our own DID is not an example.** `+2342017001428` is the production pool. It
+had reached the public API reference (`api-reference/target-swap.md`), the
+published OpenAPI spec, an admin console placeholder and a Flutter test
+fixture. Use the convention above instead.
+
+Not covered by this pass: the SDK unit-test fixtures in all three repositories
+still use numbers in real operator ranges. They are not published copy, and a
+phone-normalising test needs inputs in the formats people actually type, so
+changing them could weaken the test rather than the exposure. The one
+exception was the Flutter session test, which held our real DID, and that is
+fixed.
 
 ## Claims removed from the template
 
@@ -86,6 +140,10 @@ Verified against the live platform and the backend source on 2026-09-28, and aga
 | "Nigerian carriers" (`about.html` values card) | Reworded to "Nigerian networks" on 2026-11-01, for the same reason the "4 carriers" logo claim went: we hold no carrier relationships. |
 | "millions of couriers" | Unverifiable hyperbole. |
 | "We're hiring engineers and telecom specialists" | Unverifiable. Reworded to pilot partners. |
+| How carrier callbacks are authenticated (`developers.html`, docs security guide) | Removed on 2026-11-06. The page described the mechanism that protects the path the carrier posts to. A customer never touches that path, so publishing how it is secured is cost without benefit. Both surfaces now say only that securing it is our job and that the signature they verify is on the webhooks we send them. |
+| Implementation internals in marketing copy and the security guide | Removed on 2026-11-06. Gone: "atomic Redis allocator", "one Redis Lua script", "a circuit breaker tracks the carrier gateway's error rate and trips on sustained failure", "the routing decision is cached by event ID", the dead-letter queue, "salted hashes", the PBKDF2 recipe and iteration count, the key-derivation diagram, column names, the bcrypt cost factor, the Docker network, and the logger's field list. What each one promised is still on the page: "two calls can never be crossed onto the same number", "duplicate carrier events never create duplicate call legs", "we know within seconds when the provider starts failing". The guarantee is the claim; the machinery is how we keep it, and it can change without the page becoming a lie. |
+| Itemised roadmaps (`about.html` "On the roadmap", `products.html` "Not built yet", `how-it-works.html` secondary-provider pools) | Replaced on 2026-11-06 with one line: more is on the way, ask us. A dated list of unbuilt features is a promise with a schedule attached that nobody agreed to, and it goes stale silently. The rule that the site claims only what is live is unchanged; what is live is still listed in full. The docs keep their `## Not built yet` section, because a developer reading the reference needs to know which fields will be refused, and ten pages link to that anchor. |
+| "Enterprise starts at ₦27.00 per extra minute" (`products.html`) | Removed on 2026-11-06. Now "Beyond Scale, talk to us." The three published plan figures are unchanged and still match the `plans` table. The Enterprise row in that table still reads ₦27.00; pricing is being revised separately, and an overage rate on the page is a commitment that revision would break. |
 
 ## Open items
 
