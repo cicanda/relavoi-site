@@ -16,7 +16,12 @@
    out and leaves a grey. */
 --ink:#0E1B2C;--ink-9:#091321;--ink-8:#25303E;--ink-7:#313D4A;--ink-6:#3E4B59;--ink-5:#5B6B7A;--ink-4:#88919A;--ink-3:#D4D6D9;--ink-2:#ECEDEE;--ink-1:#EEF3F2;
 --bone:#EEF3F2;--bone-5:#F8FAF9;--paper:#FFFFFF;
-/* --sig keeps its name because 15 call sites read it; it is now Relay Teal. */
+/* --sig keeps its name because 15 call sites read it; it is now Relay Teal.
+   --sig-2 has no reader since .pill went: it was that badge's border. It
+   stays because this block is the palette, not a rule. A step of the Relay
+   ramp is a decision about the brand and belongs to Genesis, and keeping it
+   means the next hairline border on a teal tint is a class and not a token
+   change. Unused rules below this block are the ones that get deleted. */
 --sig:#0B7A6B;--sig-6:#096E60;--sig-7:#076458;--sig-2:#DDE4E2;--sig-1:#EFF2F1;
 --pulse:#2CC5AE;
 /* Proxy Amber is the proxy moment ONLY. Nothing on this site is one yet,
@@ -69,7 +74,6 @@ section{padding:var(--sec) 0}
 .chip{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:6px 14px;border-radius:999px;background:var(--paper);border:1px solid var(--line);box-shadow:0 1px 2px rgba(14,27,44,.04);font:500 12px/1.2 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--ink-6)}
 .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--sig);flex:0 0 auto}
 .badge{display:inline-flex;align-items:center;min-height:28px;padding:5px 12px;border-radius:999px;background:var(--sig-1);color:var(--sig-6);font:500 12px/1.3 var(--mono)}
-.pill{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:6px 14px;border-radius:999px;font:500 12px/1.2 var(--mono);background:var(--sig-1);color:var(--sig-6);border:1px solid var(--sig-2)}
 .dot{width:7px;height:7px;border-radius:9px;background:currentColor;position:relative;flex:0 0 auto}
 .dot::after{content:'';position:absolute;inset:-3px;border-radius:9px;background:currentColor;opacity:.35;animation:p 1.6s ease-out infinite}
 @keyframes p{0%{transform:scale(.6);opacity:.5}100%{transform:scale(2.2);opacity:0}}
@@ -136,7 +140,7 @@ section{padding:var(--sec) 0}
 
 /* grids */
 .grid{display:grid;gap:20px}
-.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(36px,6vw,72px);align-items:center}
 .split>*{min-width:0}
 
@@ -240,9 +244,9 @@ label.l{display:block;font-size:13px;font-weight:500;margin-bottom:8px;color:var
 .nav-bar{padding-right:10px}
 .nav-sheet{display:block;position:absolute;left:0;right:0;top:calc(100% + 8px);max-height:calc(100vh - 100px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:24px;box-shadow:var(--sh-2);padding:10px;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.98);transform-origin:top center;transition:opacity .2s,transform .2s,visibility 0s .2s}
 .nav.open .nav-sheet{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
-.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(2,minmax(0,1fr))}
 .g3>:last-child:nth-child(odd){grid-column:1/-1}
-.g2,.split{grid-template-columns:minmax(0,1fr)}
+.split{grid-template-columns:minmax(0,1fr)}
 .cta-band{flex-direction:column;align-items:flex-start}
 .tab-panel{grid-template-columns:minmax(0,1fr)}
 .foot .cols{grid-template-columns:repeat(3,1fr)}
@@ -253,7 +257,7 @@ label.l{display:block;font-size:13px;font-weight:500;margin-bottom:8px;color:var
 .nav{padding:0 12px}
 .nav-bar{height:58px;padding-left:14px}
 .nav .logo .wordmark{height:28px}
-.g3,.g4{grid-template-columns:minmax(0,1fr)}
+.g3{grid-template-columns:minmax(0,1fr)}
 .btn-row .btn{flex:1 1 100%}
 .code{font-size:12px;padding:18px}
 .stage{min-height:320px}
