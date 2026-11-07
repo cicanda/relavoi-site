@@ -1,0 +1,32 @@
+name: Design tokens
+
+# Fails on a colour or a font that is not a brand token.
+#
+# This site has no package.json, so the check is a plain Node script with no
+# dependencies and the workflow just runs it. The same command works locally:
+#
+#   node scripts/check-design-tokens.mjs
+#   node scripts/check-design-tokens.mjs --strict
+#
+# Blocking, and on every push, because every check it makes is a fact about the
+# files in this commit: it gives the same answer every time and a failure is
+# always ours. Same reasoning as the local half of the Links workflow.
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  tokens:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Every colour and font is a brand token
+        run: node scripts/check-design-tokens.mjs
